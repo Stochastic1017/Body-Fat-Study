@@ -24,6 +24,6 @@ Solving for $B$, we find:
 
 $$B=\frac{1}{D} \times \bigg[\frac{ab}{(a-b)}\bigg] - \bigg[\frac{b}{a-b}\bigg]$$
 
-Using the estimes $a=1.10\;\text{gm}/\text{cm}^3$ and $b=0.90\;\text{gm}/\text{cm}^3$  (see Katch and McArdle (1977), p. 111 or Wilmore (1976), p. 123) we come up with "Siri's equation":
+Using the estimes $a=1.10\text{ gm}/\text{cm}^3$ and $b=0.90\text{ gm}/\text{cm}^3$  (see Katch and McArdle (1977), p. 111 or Wilmore (1976), p. 123) we come up with "Siri's equation":
 
 $$\text{Percentage of Body Fat (i.e. 100 $\times B$)}=\frac{495}{D}-450$$
