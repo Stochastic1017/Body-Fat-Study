@@ -90,7 +90,56 @@ Using the estimes $a=1.10\\text{ gm}/\\text{cm}^3$ and $b=0.90\\text{ gm}/\\text
 
 $$\\text{Percentage of Body Fat (i.e. 100 $\\times B$)}=\\frac{495}{D}-450$$
 
-    ''', mathjax=True),
+The technique of underwater weighing "computes body volume as the difference between body weight measured in air and weight measured during water submersion. 
+In other words, body volume is equal to the loss of weight in water with the appropriate
+temperature correction for the water's density" (Katch and McArdle (1977), p. 113).
+
+Using this technique:
+                 
+$$\\text{Body Density} = \\frac{\\text{WA}}{[(\\text{WA} - \\text{WW})/\\text{c.f.} - \\text{LV}]}$$
+
+where (Katch and McArdle (1977), p. 115)
+                 
+* $\\text{WA}=$ Weight in air (kg)
+* $\\text{WW}=$ Weight in water (kg)                 
+* $\\text{c.f.}=$ Water correction factor ($=1$ at $39.2$ deg $F$ as one-gram of water occupies exactly on $\\text{cm}^3$ at this temperature, $=0.997$ at $76-78$ deg $F$)
+* $\\text{LV}=$ Residual Lung Volume (liters)
+
+Other methods of determining body volume are given in Behnke and Wilmore (1974), p.
+22 ff.
+
+Unfortunately, the above process of determining body volume by underwater submersion,
+while accurate, can be cumbersome and difficult to use by doctors who want to and easily
+quickly determine a patient’s body fat percentage based on commonly available
+measurements, even if it means sacrificing some accuracy guaranteed by underwater
+measurements.
+                 
+The commonly available measurements include age, weight, height, bmi, and various
+body circumference measurements. In particular, the variables listed below (from left to
+right in the data set) are:
+
+* ID number of individual: `IDNO`
+* Percent body fat from Siri's (1956) equation: `BODYFAT`
+* Density determined from underwater weighing: `DENSITY`
+* Age (years): `AGE`
+* Weight (lbs): `WEIGHT`
+* Height (inches): `HEIGHT`
+* Adioposity (bmi): `ADIPOSITY`
+* Neck circumference (cm): `NECK`
+* Chest circumference (cm): `CHEST`
+* Abdomen 2 circumference (cm): `ABDOMEN`
+* Hip circumference (cm): `HIP`
+* Thigh circumference (cm): `THIGH`
+* Knee circumference (cm): `KNEE`
+* Ankle circumference (cm): `ANKLE`
+* Biceps (extended) circumference (cm): `BICEPS`
+* Forearm circumference (cm): `FOREARM`
+* Wrist circumference (cm): `WRIST`   
+
+Measurement standards are listed in Benhke and Wilmore (1974), pp. 45-48 where, for
+instance, the abdomen 2 circumference is measured "laterally, at the level of the iliac
+crests, and anteriorly, at the umbilicus."                      
+''', mathjax=True),
 
     dash_table.DataTable(
         id='datatable-interactivity',
