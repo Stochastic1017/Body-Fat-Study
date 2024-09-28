@@ -1,28 +1,27 @@
-from dash import Dash, dcc, html
+from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
+from landing_page import layout as landing_layout
+from first_page import layout as first_layout
+from second_page import layout as second_layout
 
-# Initialize the app
-app = Dash(__name__, suppress_callback_exceptions=True)
+app = Dash(__name__, suppress_callback_exceptions=True, external_scripts=['https://cdn.plot.ly/plotly-latest.min.js'])
 
-# Main layout with URL routing
 app.layout = html.Div([
-    dcc.Location(id='url', refresh=False),  # Tracks the current URL
-    html.Div(id='page-content')  # Content is rendered here based on URL
+    dcc.Location(id='url', refresh=False),
+    html.Div(id='page-content')
 ])
 
-# Callback to manage page routing based on the URL
 @app.callback(Output('page-content', 'children'),
-              [Input('url', 'pathname')])
+              Input('url', 'pathname'))
 def display_page(pathname):
-    if pathname == '/first_page':
-        from first_page import layout
-        return layout
+    if pathname == '/landing_page':
+        return landing_layout
+    elif pathname == '/first_page':
+        return first_layout
     elif pathname == '/second_page':
-        from second_page import layout
-        return layout
+        return second_layout
     else:
-        from landing_page import layout
-        return layout
+        return landing_layout  # default to landing page
 
 if __name__ == '__main__':
     app.run_server(debug=True)

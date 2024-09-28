@@ -12,11 +12,8 @@ df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Stud
 ########################
 
 layout = [
-    html.H1("Body Fat Estimation Made Easy: A Data-Driven Approach", 
+    html.H1("Background, Goals, and Data Description", 
             style={'text-align': 'center', 'color': '#ee6c4d'}),
-
-    html.H2("Authors: Shrivats Sudhir, Jiren Lu, Will Wang, Zekai Xu", 
-            style={'text-align': 'center', 'color': '#807A79', 'font-size': 15}),
 
     html.H3("Introduction:", 
             style={'text-align': 'left', 'color': '#293241'}),
@@ -75,7 +72,7 @@ temperature correction for the water's density" (Katch and McArdle (1977), p. 11
 
 Using this technique:
                  
-$$\\text{Body Density} = \\frac{\\text{WA}}{[(\\text{WA} - \\text{WW})/\\text{c.f.} - \\text{LV}]}$$
+$$\\text{Body Density} = \\frac{\\text{WA}}{\\frac{\\text{WA} - \\text{WW}}{\\text{c.f.}} - \\text{LV}}$$
 
 where (Katch and McArdle (1977), p. 115)
                  
@@ -144,21 +141,41 @@ crests, and anteriorly, at the umbilicus."
         'textAlign': 'center'},
     ),
 
-    html.Div(
-        dcc.Link('Go to Next Page', href='/second_page', style={
-            'color': '#ee6c4d',
-            'fontSize': '20px',
-            'textDecoration': 'none',
-            'fontWeight': 'bold',
-            'padding': '10px',
-            'border': '2px solid #ee6c4d',
-            'borderRadius': '10px',
-            'backgroundColor': '#f7f7f7',
-            'textAlign': 'center',
-            'display': 'inline-block',
-            'transition': 'all 0.3s ease',
-            'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
-        }),
-        style={'display': 'flex', 'justifyContent': 'flex-end', 'padding': '20px'}
-    )
+html.Div([
+    # Previous Page button
+    dcc.Link('Go to Previous Page', href='/landing_page', style={
+        'color': '#ee6c4d',
+        'fontSize': '20px',
+        'textDecoration': 'none',
+        'fontWeight': 'bold',
+        'padding': '10px',
+        'border': '2px solid #ee6c4d',
+        'borderRadius': '10px',
+        'backgroundColor': '#f7f7f7',
+        'textAlign': 'center',
+        'display': 'inline-block',
+        'transition': 'all 0.3s ease',
+        'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
+    }),
+
+    # Next Page button
+    dcc.Link('Go to Next Page', href='/second_page', style={
+        'color': '#ee6c4d',
+        'fontSize': '20px',
+        'textDecoration': 'none',
+        'fontWeight': 'bold',
+        'padding': '10px',
+        'border': '2px solid #ee6c4d',
+        'borderRadius': '10px',
+        'backgroundColor': '#f7f7f7',
+        'textAlign': 'center',
+        'display': 'inline-block',
+        'transition': 'all 0.3s ease',
+        'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
+    })
+], style={
+    'display': 'flex',
+    'justifyContent': 'space-between',
+    'padding': '20px'
+})
 ]
