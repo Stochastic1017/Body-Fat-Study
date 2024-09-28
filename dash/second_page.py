@@ -24,7 +24,7 @@ layout = html.Div([
                 options=[{'label': col, 'value': col} for col in df.columns[1:]],  # Options from column names
                 placeholder='Choose Features',
                 multi=True,
-                value=df.columns[1:8]  # Default features (choose first few columns as default)
+                value=df.columns[1:10]  # Default features (choose first few columns as default)
             ),
         ], style={'width': '100%', 'display': 'inline-block'}),
 
@@ -37,7 +37,7 @@ layout = html.Div([
                     dcc.Dropdown(
                         id='x-axis-feature',
                         options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                        value=df.columns[1]
+                        value=df.columns[2]
                     ),
                 ], style={'width': '48%', 'display': 'inline-block'}),
                 html.Div([
@@ -45,7 +45,7 @@ layout = html.Div([
                     dcc.Dropdown(
                         id='y-axis-feature',
                         options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                        value=df.columns[2]
+                        value=df.columns[3]
                     ),
                 ], style={'width': '48%', 'float': 'right', 'display': 'inline-block'})
             ]),
@@ -110,7 +110,7 @@ def update_heatmap(selected_features):
             z=correlation_matrix.values,
             x=correlation_matrix.columns,
             y=correlation_matrix.columns,
-            colorscale='Inferno',
+            colorscale='Oranges',
             zmin=-1,
             zmax=1
         )
@@ -208,8 +208,6 @@ def update_scatter_hist(x_feature, y_feature):
 
     # Create a more detailed and aesthetically pleasing OLS summary table
     ols_summary_table = [
-        ['Independent Variable', x_feature],
-        ['Dependent Variable', y_feature],
         ['Coefficient', f"{ols_model.params.iloc[1]:.4f}"],
         ['Intercept', f"{ols_model.params.iloc[0]:.4f}"],
         ['P-value (coef)', f"{ols_model.pvalues.iloc[1]:.4e}"],
@@ -223,14 +221,14 @@ def update_scatter_hist(x_feature, y_feature):
     ]
 
     fig.add_trace(go.Table(
-        header=dict(values=['<b>OLS Summary</b>', '<b>Details</b>'],
+        header=dict(values=[f'<b>{y_feature} ~ {x_feature}</b>', '<b>Details</b>'],
                     fill_color='#E6F3FF',
                     align='left',
                     font=dict(size=12, color='black')),
         cells=dict(values=list(zip(*ols_summary_table)),
                    fill_color=[['#F0F8FF', 'white']*7],
                    align='left',
-                   font=dict(size=11))),
+                   font=dict(size=12))),
         row=1, col=2)
 
     # Update layout
