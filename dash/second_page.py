@@ -17,11 +17,12 @@ layout = html.Div([
         html.Div([
             dcc.Graph(id='correlation-heatmap', style={'height': '500px'}),
             html.P("Features Included in Heatmap:"),
-            dcc.Checklist(
-                id='features-checklist',
-                options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                value=df.columns[1:].tolist(),
-                inline=True
+            dcc.Dropdown(
+                id='heatmap-features-dropdown',
+                options=[{'label': col, 'value': col} for col in df.columns[1:]],  # Options from column names
+                placeholder='Choose Features',
+                multi=True,
+                value=df.columns[1:4]  # Default features (choose first few columns as default)
             ),
         ], style={'width': '100%', 'display': 'inline-block'}),
         
@@ -48,27 +49,57 @@ layout = html.Div([
         ], style={'width': '100%', 'display': 'inline-block'}),
     ]),
 
-    dcc.Link('Go Back to Introduction', href='/landing_page', style={
-        'fontSize': '18px',
+html.Div([
+    # Previous Page button
+    dcc.Link('Go to Previous Page', href='/first_page', style={
+        'color': '#ee6c4d',
+        'fontSize': '20px',
+        'textDecoration': 'none',
+        'fontWeight': 'bold',
         'padding': '10px',
+        'border': '2px solid #ee6c4d',
         'borderRadius': '10px',
         'backgroundColor': '#f7f7f7',
-        'color': '#ee6c4d',
-        'textDecoration': 'none',
-        'border': '2px solid #ee6c4d',
+        'textAlign': 'center',
         'display': 'inline-block',
-        'marginTop': '20px'
+        'transition': 'all 0.3s ease',
+        'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
+    }),
+
+    # Next Page button
+    dcc.Link('Go to Next Page', href='/landing_page', style={
+        'color': '#ee6c4d',
+        'fontSize': '20px',
+        'textDecoration': 'none',
+        'fontWeight': 'bold',
+        'padding': '10px',
+        'border': '2px solid #ee6c4d',
+        'borderRadius': '10px',
+        'backgroundColor': '#f7f7f7',
+        'textAlign': 'center',
+        'display': 'inline-block',
+        'transition': 'all 0.3s ease',
+        'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
     })
+], style={
+    'display': 'flex',
+    'justifyContent': 'space-between',
+    'padding': '20px'
+})
 ])
 
+# Callback to update correlation heatmap based on selected features
 @callback(
     Output('correlation-heatmap', 'figure'),
-    Input('features-checklist', 'value')
+    Input('heatmap-features-dropdown', 'value')
 )
 def update_heatmap(selected_features):
+    if not selected_features:  # Fallback in case no features are selected
+        return go.Figure()
+
     filtered_df = df[selected_features]
     correlation_matrix = filtered_df.corr()
-    
+
     heatmap_fig = go.Figure(
         data=go.Heatmap(
             z=correlation_matrix.values,
@@ -79,15 +110,16 @@ def update_heatmap(selected_features):
             zmax=1
         )
     )
-    
+
     heatmap_fig.update_layout(
         title="Correlation Matrix Heatmap",
         xaxis_nticks=36,
         height=500
     )
-    
+
     return heatmap_fig
 
+# Callback to update scatter plot with histograms
 @callback(
     Output('scatter-hist-plot', 'figure'),
     Input('x-axis-feature', 'value'),
@@ -102,25 +134,25 @@ def update_scatter_hist(x_feature, y_feature):
         specs=[[{"type": "xy"}, {"type": "xy"}],
                [{"type": "xy"}, {"type": "xy"}]]
     )
-    
+
     # Add scatter plot
     fig.add_trace(
         go.Scatter(x=df[x_feature], y=df[y_feature], mode='markers', name='Scatter'),
         row=2, col=1
     )
-    
+
     # Add histogram for x-axis
     fig.add_trace(
         go.Histogram(x=df[x_feature], name=f'{x_feature} distribution'),
         row=1, col=1
     )
-    
+
     # Add histogram for y-axis
     fig.add_trace(
         go.Histogram(y=df[y_feature], name=f'{y_feature} distribution'),
         row=2, col=2
     )
-    
+
     # Add KDE plots
     kde_x = stats.gaussian_kde(df[x_feature].dropna())
     x_range = np.linspace(df[x_feature].min(), df[x_feature].max(), 100)
@@ -135,15 +167,15 @@ def update_scatter_hist(x_feature, y_feature):
         go.Scatter(x=kde_y(y_range), y=y_range, mode='lines', name=f'{y_feature} KDE'),
         row=2, col=2
     )
-    
+
     # Update layout
     fig.update_layout(
         title=f"Scatter Plot with Histograms: {x_feature} vs {y_feature}",
         height=600,
         showlegend=False
     )
-    
+
     fig.update_xaxes(title_text=x_feature, row=2, col=1)
     fig.update_yaxes(title_text=y_feature, row=2, col=1)
-    
+
     return fig
