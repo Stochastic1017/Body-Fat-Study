@@ -25,7 +25,7 @@ second_layout = html.Div([
 
     html.Div([
         # Previous Page button
-        dcc.Link('Go to Previous Page', href='/first_page', style={
+        dcc.Link('Go to Previous Page', href='/first_page.introduction_description', style={
             'color': '#ee6c4d',
             'fontSize': '20px',
             'textDecoration': 'none',
@@ -41,7 +41,7 @@ second_layout = html.Div([
         }),
 
         # Next Page button
-        dcc.Link('Go to Next Page', href='/landing_page', style={
+        dcc.Link('Go to Next Page', href='/landing_page.cover_page', style={
             'color': '#ee6c4d',
             'fontSize': '20px',
             'textDecoration': 'none',
