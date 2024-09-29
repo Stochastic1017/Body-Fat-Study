@@ -17,7 +17,7 @@ box_plot_layout = html.Div([
             options=[{'label': col, 'value': col} for col in df.columns[1:]],  # Options from column names
             placeholder='Choose Features',
             multi=True,
-            value=df.columns[1:5]  # Default features
+            value=df.columns[-6:-1]  # Default features
         ),
     ], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'})
 ])

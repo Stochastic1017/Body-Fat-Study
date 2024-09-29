@@ -1,6 +1,6 @@
 from dash import html, dcc
 
-layout = html.Div(
+landing_layout = html.Div(
     style={'height': '100vh', 'display': 'flex', 'flexDirection': 'column', 'justifyContent': 'center', 'alignItems': 'center', 'backgroundColor': '#f7f7f7'},
     children=[
         html.H1("Body Fat Estimation Made Easy: A Data-Driven Approach", 

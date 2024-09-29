@@ -15,7 +15,7 @@ scatter_plot_layout = html.Div([
             dcc.Dropdown(
                 id='x-axis-feature',
                 options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                value=df.columns[3]
+                value=df.columns[6]
             ),
         ], style={'width': '48%', 'display': 'inline-block'}),
 
@@ -24,7 +24,7 @@ scatter_plot_layout = html.Div([
             dcc.Dropdown(
                 id='y-axis-feature',
                 options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                value=df.columns[2]
+                value=df.columns[1]
             ),
         ], style={'width': '48%', 'float': 'right', 'display': 'inline-block'})
     ]),

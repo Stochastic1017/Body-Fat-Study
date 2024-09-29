@@ -6,7 +6,7 @@ from second_page.scatter_plot import scatter_plot_layout
 import second_page.callbacks  # Ensure to import the callbacks file to register them
 
 # Main layout for the second page
-layout = html.Div([
+second_layout = html.Div([
     html.H1("Exploratory Analysis and Data Visualization",
             style={'text-align': 'center', 'color': '#ee6c4d'}),
 

@@ -11,7 +11,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Stud
 ### describe app layout
 ########################
 
-layout = [
+first_layout = [
     html.H1("Background, Goals, and Data Description", 
             style={'text-align': 'center', 'color': '#ee6c4d'}),
 
