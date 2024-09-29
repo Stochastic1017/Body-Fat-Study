@@ -44,7 +44,6 @@ crests, and anteriorly, at the umbilicus."
     data=df.to_dict('records'),
     sort_action="native",
     sort_mode="multi",
-    row_selectable="multi",
     row_deletable=False,
     selected_columns=[],
     selected_rows=[],

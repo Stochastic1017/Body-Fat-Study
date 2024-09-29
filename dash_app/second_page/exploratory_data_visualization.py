@@ -4,7 +4,6 @@ from second_page.box_plot import box_plot_layout
 from second_page.correlation_heatmap import correlation_heatmap_layout
 from second_page.scatter_plot import scatter_plot_layout
 from second_page.data_table import data_table_layout
-import second_page.callbacks  # Ensure to import the callbacks file to register them
 
 # Main layout for the second page
 second_layout = html.Div([
