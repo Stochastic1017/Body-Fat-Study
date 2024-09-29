@@ -1,10 +1,10 @@
 from dash import dcc, html, Input, Output, callback
 import plotly.graph_objects as go
-import numpy as np
-from scipy import stats
 import pandas as pd
 from plotly.subplots import make_subplots
 import statsmodels.api as sm
+import numpy as np
+from scipy import stats
 
 # Load the data
 df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Study/refs/heads/main/dataset/BodyFat.csv')
@@ -13,48 +13,62 @@ df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Stud
 layout = html.Div([
     html.H1("Exploratory Analysis and Data Visualization",
             style={'text-align': 'center', 'color': '#ee6c4d'}),
+    
+    # Section for interactable box plots with jittered points
+    html.H3("Interactable Box Plots with Jittered Data:", 
+        style={'text-align': 'left', 'color': '#293241'}),
+    html.Div([
+        dcc.Graph(id='boxplot-features', style={'height': '500px'}),
+        html.P("Select Features for Box Plots:"),
+        dcc.Dropdown(
+            id='boxplot-features-dropdown',
+            options=[{'label': col, 'value': col} for col in df.columns[1:]],  # Options from column names
+            placeholder='Choose Features',
+            multi=True,
+            value=df.columns[1:5]  # Default features
+        ),
+    ], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'}),
+    
+    # Section for correlation heatmap
     html.H3("Interactable Correlation Heatmap:", 
         style={'text-align': 'left', 'color': '#293241'}),
     html.Div([
-        html.Div([
-            dcc.Graph(id='correlation-heatmap', style={'height': '500px'}),
-            html.P("Features Included in Heatmap:"),
-            dcc.Dropdown(
-                id='heatmap-features-dropdown',
-                options=[{'label': col, 'value': col} for col in df.columns[1:]],  # Options from column names
-                placeholder='Choose Features',
-                multi=True,
-                value=df.columns[1:10]  # Default features (choose first few columns as default)
-            ),
-        ], style={'width': '100%', 'display': 'inline-block'}),
+        dcc.Graph(id='correlation-heatmap', style={'height': '500px'}),
+        html.P("Features Included in Heatmap:"),
+        dcc.Dropdown(
+            id='heatmap-features-dropdown',
+            options=[{'label': col, 'value': col} for col in df.columns[1:]],  # Options from column names
+            placeholder='Choose Features',
+            multi=True,
+            value=df.columns[1:10]  # Default features (choose first few columns as default)
+        ),
+    ], style={'width': '100%', 'display': 'inline-block'}),
 
-        html.H3("Interactable Density Histogram and Scatterplot:", 
-            style={'text-align': 'left', 'color': '#293241'}),
-        html.Div([
-            html.Div([
-                html.Div([
-                    html.P("X-axis feature:"),
-                    dcc.Dropdown(
-                        id='x-axis-feature',
-                        options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                        value=df.columns[2]
-                    ),
-                ], style={'width': '48%', 'display': 'inline-block'}),
-                html.Div([
-                    html.P("Y-axis feature:"),
-                    dcc.Dropdown(
-                        id='y-axis-feature',
-                        options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                        value=df.columns[3]
-                    ),
-                ], style={'width': '48%', 'float': 'right', 'display': 'inline-block'})
-            ]),
-            dcc.Graph(id='scatter-hist-plot', style={'height': '600px'}),], 
-        style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'}),], 
-    style={'backgroundColor': 'white'}),  # Set background to white
-
+    # Scatter plot and histogram section
+    html.H3("Interactable Density Histogram and Scatterplot:", 
+        style={'text-align': 'left', 'color': '#293241'}),
     html.Div([
-        # Previous Page button
+        html.Div([
+            html.P("X-axis feature:"),
+            dcc.Dropdown(
+                id='x-axis-feature',
+                options=[{'label': col, 'value': col} for col in df.columns[1:]],
+                value=df.columns[3]
+            ),
+        ], style={'width': '48%', 'display': 'inline-block'}),
+        html.Div([
+            html.P("Y-axis feature:"),
+            dcc.Dropdown(
+                id='y-axis-feature',
+                options=[{'label': col, 'value': col} for col in df.columns[1:]],
+                value=df.columns[2]
+            ),
+        ], style={'width': '48%', 'float': 'right', 'display': 'inline-block'})
+    ]),
+    dcc.Graph(id='scatter-hist-plot', style={'height': '600px'}),
+    
+    # Navigation buttons
+    html.Div([
         dcc.Link('Go to Previous Page', href='/first_page', style={
             'color': '#ee6c4d',
             'fontSize': '20px',
@@ -69,8 +83,6 @@ layout = html.Div([
             'transition': 'all 0.3s ease',
             'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
         }),
-
-        # Next Page button
         dcc.Link('Go to Next Page', href='/landing_page', style={
             'color': '#ee6c4d',
             'fontSize': '20px',
@@ -85,13 +97,35 @@ layout = html.Div([
             'transition': 'all 0.3s ease',
             'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
         })
-    ], style={
-        'display': 'flex',
-        'justifyContent': 'space-between',
-        'padding': '20px',
-        'backgroundColor': 'white'  # Set background to white
-    })
+    ], style={'display': 'flex', 'justifyContent': 'space-between', 'padding': '20px', 'backgroundColor': 'white'})
 ])
+
+# Callback to update box plot with jittered data based on selected features
+@callback(
+    Output('boxplot-features', 'figure'),
+    Input('boxplot-features-dropdown', 'value')
+)
+def update_boxplots(selected_features):
+    if not selected_features:
+        return go.Figure()
+
+    # Create figure with box plots and jittered data
+    fig = go.Figure()
+    for feature in selected_features:
+        # Add box plot
+        fig.add_trace(go.Box(y=df[feature], name=feature, boxpoints='all',
+                             jitter=0.3, pointpos=-1.8))
+
+    # Update layout
+    fig.update_layout(
+        title="Box Plots with Jittered Data for Selected Features",
+        yaxis_title="Values",
+        boxmode='group',
+        plot_bgcolor='white',
+        paper_bgcolor='white'
+    )
+
+    return fig
 
 # Callback to update correlation heatmap based on selected features
 @callback(
@@ -124,6 +158,7 @@ def update_heatmap(selected_features):
 
     return heatmap_fig
 
+# Callback to update scatter plot with histograms and OLS
 @callback(
     Output('scatter-hist-plot', 'figure'),
     Input('x-axis-feature', 'value'),
@@ -145,10 +180,7 @@ def update_scatter_hist(x_feature, y_feature):
                    y=df[y_feature], 
                    mode='markers', 
                    name='Scatter',
-                   marker=dict(
-                               size=10, 
-                               opacity=0.5, 
-                               color="#E97451")),
+                   marker=dict(size=10, opacity=0.5, color="#E97451")),
         row=2, col=1
     )
 
@@ -206,7 +238,7 @@ def update_scatter_hist(x_feature, y_feature):
         row=2, col=2
     )
 
-    # Create a more detailed and aesthetically pleasing OLS summary table
+    # Create a more detailed OLS summary table
     ols_summary_table = [
         ['Coefficient', f"{ols_model.params.iloc[1]:.4f}"],
         ['Intercept', f"{ols_model.params.iloc[0]:.4f}"],
@@ -242,11 +274,5 @@ def update_scatter_hist(x_feature, y_feature):
 
     fig.update_xaxes(title_text=x_feature, row=2, col=1, showgrid=True, gridcolor='lightgrey')
     fig.update_yaxes(title_text=y_feature, row=2, col=1, showgrid=True, gridcolor='lightgrey')
-
-    # Update subplot backgrounds
-    fig.update_xaxes(showgrid=True, gridcolor='lightgrey', row=1, col=1)
-    fig.update_yaxes(showgrid=True, gridcolor='lightgrey', row=1, col=1)
-    fig.update_xaxes(showgrid=True, gridcolor='lightgrey', row=2, col=2)
-    fig.update_yaxes(showgrid=True, gridcolor='lightgrey', row=2, col=2)
 
     return fig
