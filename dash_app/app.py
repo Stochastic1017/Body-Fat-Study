@@ -1,8 +1,8 @@
 from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
-from landing_page.cover_page import layout as landing_layout
-from first_page.introduction_description import layout as first_layout
-from second_page.exploratory_data_visualization import layout as second_layout
+from landing_page.cover_page import landing_layout
+from first_page.introduction_description import first_layout
+from second_page.exploratory_data_visualization import second_layout
 
 app = Dash(__name__, 
            suppress_callback_exceptions=True, 
