@@ -21,6 +21,7 @@ correlation_heatmap_layout = html.Div([
     ),
     dcc.Graph(id='correlation-heatmap', style={'height': '500px'}),
     dcc.Graph(id='vif-table', style={'height': '400px'}),], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'})
+
 # Function to compute VIF
 def compute_vif(df):
     """Compute Variance Inflation Factor (VIF)"""
