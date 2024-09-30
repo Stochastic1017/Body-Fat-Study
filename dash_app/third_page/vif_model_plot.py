@@ -14,7 +14,8 @@ df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Stud
 
 # Define the layout for the scatter plot with regression plane and table
 vif_regression_layout = html.Div([
-    html.H3("3D Scatterplot with Fitted Regression Plane:", style={'text-align': 'left', 'color': '#293241'}),
+    html.H3("3D Scatterplot with Fitted Regression Plane:", 
+            style={'text-align': 'left', 'color': '#293241'}),
     dcc.Graph(id="3d-regression-plot"),
 ])
 
@@ -53,7 +54,7 @@ def update_3d_scatter_plot(_):
     fig.add_trace(go.Scatter3d(
         x=df['AGE'], y=df['WEIGHT'], z=df['BODYFAT'],
         mode='markers',
-        marker=dict(size=3, color='black', opacity=0.5),
+        marker=dict(size=5, color='black', opacity=0.4),
         name='Data Points',
         legendgroup='scatter'
     ), row=1, col=1)
@@ -61,7 +62,7 @@ def update_3d_scatter_plot(_):
     # Add the regression plane
     fig.add_trace(go.Surface(
         x=age_grid, y=weight_grid, z=Z,
-        opacity=0.7,
+        opacity=0.4,
         name='Regression Plane',
         showscale=False,
         colorscale='Inferno',

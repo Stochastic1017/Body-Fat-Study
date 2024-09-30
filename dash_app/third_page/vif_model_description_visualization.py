@@ -5,7 +5,7 @@ from third_page.vif_model_plot import vif_regression_layout
 # Main layout for the second page
 third_layout = html.Div([
     html.H1("Minimum Variance Inflation Factor (VIF) Regression Model",
-            style={'text-align': 'center', 'color': '#ee6c4d'}),
+            style={'text-align': 'center', 'color': '#EE6C4D'}),
 
     html.H3("Controlling Multicollinearity with VIF:", 
             style={'text-align': 'left', 'color': '#293241'}),
