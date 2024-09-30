@@ -46,14 +46,14 @@ def update_3d_scatter_plot(_):
     fig = make_subplots(
         rows=1, cols=2,  # Two subplots: scatter plot + regression plane (left), and table (right)
         specs=[[{'type': 'scatter3d'}, {'type': 'table'}]],
-        column_widths=[0.4, 0.4]  # Adjust the width of the plots to make the 3D plot smaller
+        column_widths=[0.5, 0.5]  # Adjust the width of the plots to make the 3D plot smaller
     )
 
     # Add scatter plot of the actual data
     fig.add_trace(go.Scatter3d(
         x=df['AGE'], y=df['WEIGHT'], z=df['BODYFAT'],
         mode='markers',
-        marker=dict(size=5, color='blue', opacity=0.6),
+        marker=dict(size=3, color='black', opacity=0.5),
         name='Data Points',
         legendgroup='scatter'
     ), row=1, col=1)
@@ -61,10 +61,10 @@ def update_3d_scatter_plot(_):
     # Add the regression plane
     fig.add_trace(go.Surface(
         x=age_grid, y=weight_grid, z=Z,
-        colorscale='Viridis',
         opacity=0.7,
         name='Regression Plane',
         showscale=False,
+        colorscale='Inferno',
         legendgroup='plane'
     ), row=1, col=1)
 

@@ -133,15 +133,18 @@ def update_scatter_hist(x_feature, y_feature):
         ['BIC', f"{ols_model.bic:.2f}"]
     ]
 
+    # Add the table with regression summary
     fig.add_trace(go.Table(
-        header=dict(values=[f'<b>{y_feature} ~ {x_feature}</b>', '<b>Details</b>'],
-                    fill_color='#E6F3FF',
+        header=dict(values=['<b>Metric</b>', '<b>Value</b>'],
+                    fill_color='white',  # Set header background to white
                     align='left',
-                    font=dict(size=12, color='black')),
+                    font=dict(size=12, color='black'),  # Set text color to black
+                    line_color='black'),  # Set header border to black
         cells=dict(values=list(zip(*ols_summary_table)),
-                   fill_color=[['#F0F8FF', 'white']*7],
+                   fill_color='white',  # Set cell background to white
                    align='left',
-                   font=dict(size=12))),
+                   font=dict(size=12, color='black'),  # Set text color to black
+                   line_color='black')),  # Set cell border to black
         row=1, col=2)
 
     # Update layout

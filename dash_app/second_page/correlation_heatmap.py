@@ -65,19 +65,28 @@ def update_heatmap_and_vif(selected_features):
 
     # Compute VIF and create a table figure
     vif_data = compute_vif(filtered_df)
+
+    # Create a table for the VIF data
     vif_table_fig = go.Figure(
         data=[go.Table(
-            header=dict(values=list(vif_data.columns),
-                        fill_color='paleturquoise',
-                        align='left'),
-            cells=dict(values=[vif_data.Feature, vif_data.VIF.round(2)],
-                       fill_color='lavender',
-                       align='left'))
-        ]
+            header=dict(values=['<b>Feature</b>', '<b>VIF</b>'],  # Update header labels to match the VIF content
+                        fill_color='white',  # Set header background to white
+                        align='left',
+                        font=dict(size=12, color='black'),  # Set text color to black
+                        line_color='black'),  # Set header border to black
+            cells=dict(values=[vif_data['Feature'], vif_data['VIF']],  # Provide VIF data to the table
+                    fill_color='white',  # Set cell background to white
+                    align='left',
+                    font=dict(size=12, color='black'),  # Set text color to black
+                    line_color='black')  # Set cell border to black
+        )]
     )
+
+    # Set layout properties for the VIF table figure
     vif_table_fig.update_layout(
         title="Variance Inflation Factor (VIF)",
-        height=400
+        height=400,
+        template='plotly_white'  # Keep consistent with the plotly white theme
     )
 
     return heatmap_fig, vif_table_fig
