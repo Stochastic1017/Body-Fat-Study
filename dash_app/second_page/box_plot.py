@@ -33,11 +33,20 @@ def update_boxplot(features):
         return go.Figure()
 
     fig = go.Figure()
-    
-    # Add jittered box plots for selected features
+
+    # Add jittered box plots for selected features with custom hovertext
     for feature in features:
-        fig.add_trace(go.Box(y=df[feature], name=feature, 
-                             boxpoints='all', jitter=0.3, pointpos=-1.8))
+        hover_text = [f"IDNO: {df.loc[i, 'IDNO']}, {feature}: {df.loc[i, feature]:.2f}" for i in df.index]
+        
+        fig.add_trace(go.Box(
+            y=df[feature],
+            name=feature, 
+            boxpoints='all', 
+            jitter=0.3, 
+            pointpos=-1.8,
+            hovertext=hover_text,  # Adding custom hover text
+            hoverinfo='text'  # To ensure custom hover text is displayed
+        ))
 
     fig.update_layout(
         title="Box Plot with Jittered Data",

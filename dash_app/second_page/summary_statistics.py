@@ -114,22 +114,30 @@ def update_analysis(feature_column):
     # Adding the table to the figure using add_trace
     fig.add_trace(stats_table, row=1, col=1)
 
-    
-    # (1,2) Histogram with rug plot as marginal
+    # (1,2) Histogram with rug plot as marginal, black border, and fewer bins
     fig.add_trace(
-        go.Histogram(x=column_data, name='Histogram', histnorm='probability density', 
-                     marker=dict(color='#EE6C4D', opacity=0.8),
-                     hovertext=hover_text,
-                     hoverinfo='text'),
+        go.Histogram(
+            x=column_data, 
+            name='Histogram', 
+            histnorm='probability density', 
+            marker=dict(
+                color='#EE6C4D', 
+                opacity=0.8, 
+                line=dict(color='black', width=1)  # Add black border to histogram bars
+            ),
+            nbinsx=20,  # Reduce the number of bins (you can adjust this value)
+            hovertext=hover_text,
+            hoverinfo='text'
+        ),
         row=1, col=2
     )
+
     
     # (2,1) Boxplot + Outliers with custom hover text
     fig.add_trace(
         go.Box(y=column_data, name='Boxplot', 
                marker=dict(color='#EE6C4D'),
-               hovertext=hover_text,
-               hoverinfo='text'),
+               hovertext=hover_text),
         row=2, col=1
     )
     

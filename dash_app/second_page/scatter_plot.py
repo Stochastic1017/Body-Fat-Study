@@ -38,13 +38,19 @@ scatter_plot_layout = html.Div([
     dcc.Graph(id='scatter-hist-plot', style={'height': '600px'}),
 ], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'})
 
-# Callback for updating the scatter plot with histograms and OLS regression (new)
+# Callback for updating the scatter plot with histograms and OLS regression
 @callback(
     Output('scatter-hist-plot', 'figure'),
     Input('x-axis-feature', 'value'),
     Input('y-axis-feature', 'value')
 )
 def update_scatter_hist(x_feature, y_feature):
+    # Add custom hover text with row information
+    row_indices = df.index
+    hover_text_scatter = [f"IDNO: {df.loc[i, 'IDNO']}, {x_feature}: {df.loc[i, x_feature]:.2f}, {y_feature}: {df.loc[i, y_feature]:.2f}" for i in row_indices]
+    hover_text_x_hist = [f"IDNO: {df.loc[i, 'IDNO']}, {x_feature}: {df.loc[i, x_feature]:.2f}" for i in row_indices]
+    hover_text_y_hist = [f"IDNO: {df.loc[i, 'IDNO']}, {y_feature}: {df.loc[i, y_feature]:.2f}" for i in row_indices]
+
     # Create subplot figure
     fig = make_subplots(
         rows=2, cols=2,
@@ -54,7 +60,7 @@ def update_scatter_hist(x_feature, y_feature):
                [{"type": "xy"}, {"type": "xy"}]]
     )
 
-    # Add scatter plot
+    # Add scatter plot with custom hover text
     fig.add_trace(
         go.Scatter(x=df[x_feature], 
                    y=df[y_feature], 
@@ -63,7 +69,9 @@ def update_scatter_hist(x_feature, y_feature):
                    marker=dict(
                                size=10, 
                                opacity=0.5, 
-                               color="#E97451")),
+                               color="#E97451"),
+                   hovertext=hover_text_scatter,
+                   hoverinfo='text'),
         row=2, col=1
     )
 
@@ -80,21 +88,39 @@ def update_scatter_hist(x_feature, y_feature):
         row=2, col=1
     )
 
-    # Add histogram for x-axis
+    # Add histogram for x-axis with custom hover text, black borders, and fewer bins
     fig.add_trace(
-        go.Histogram(x=df[x_feature], 
-                     name=f'{x_feature} distribution', 
-                     histnorm="probability density",
-                     marker=dict(color='#9FE7F5', opacity=0.5)),
+        go.Histogram(
+            x=df[x_feature], 
+            name=f'{x_feature} distribution', 
+            histnorm="probability density",
+            marker=dict(
+                color='#9FE7F5', 
+                opacity=0.5, 
+                line=dict(color='black', width=1)  # Add black borders
+            ),
+            nbinsx=20,  # Reduce number of bins
+            hovertext=hover_text_x_hist,
+            hoverinfo='text'
+        ),
         row=1, col=1
     )
 
-    # Add histogram for y-axis
+    # Add histogram for y-axis with custom hover text, black borders, and fewer bins
     fig.add_trace(
-        go.Histogram(y=df[y_feature], 
-                     name=f'{y_feature} distribution', 
-                     histnorm="probability density",
-                     marker=dict(color="#F27F0C", opacity=0.5)),
+        go.Histogram(
+            y=df[y_feature], 
+            name=f'{y_feature} distribution', 
+            histnorm="probability density",
+            marker=dict(
+                color="#F27F0C", 
+                opacity=0.5, 
+                line=dict(color='black', width=1)  # Add black borders
+            ),
+            nbinsy=20,  # Reduce number of bins
+            hovertext=hover_text_y_hist,
+            hoverinfo='text'
+        ),
         row=2, col=2
     )
 
