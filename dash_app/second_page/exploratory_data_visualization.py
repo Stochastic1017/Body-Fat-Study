@@ -4,14 +4,18 @@ from second_page.box_plot import box_plot_layout
 from second_page.correlation_heatmap import correlation_heatmap_layout
 from second_page.scatter_plot import scatter_plot_layout
 from second_page.data_table import data_table_layout
+from second_page.summary_statistics import summary_statistics_layout
 
 # Main layout for the second page
 second_layout = html.Div([
     html.H1("Exploratory Analysis and Data Visualization",
-            style={'text-align': 'center', 'color': '#ee6c4d'}),
+            style={'text-align': 'center', 'color': '#EE6C4D'}),
 
     # Include Data Table
     data_table_layout,
+
+    # Include Statistics Table
+    summary_statistics_layout,
 
     # Include the Box Plot layout
     box_plot_layout,
