@@ -7,7 +7,7 @@ landing_layout = html.Div(
         html.H1("Body Fat Estimation Made Easy: A Data-Driven Approach", 
                 style={'fontSize': '60px', 'color': '#ee6c4d', 'textAlign': 'center', 'margin': '0'}),
         
-        html.H2("Authors: Shrivats Sudhir, Jiren Lu, Will Wang, Zekai Xu", 
+        html.H2("Authors: Shrivats Sudhir, Xiangchen Li, Will Wang", 
                 style={'fontSize': '24px', 'color': '#807A79', 'textAlign': 'center', 'margin': '20px 0'}),
 
         # Link to navigate to the first page (introduction)

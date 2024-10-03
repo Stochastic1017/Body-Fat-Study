@@ -19,7 +19,8 @@ summary_statistics_layout = html.Div([
         dcc.Dropdown(
             id='feature-column',
             options=[{'label': col, 'value': col} for col in df.columns[1:]],  # Skipping the first column (likely ID)
-            value=df.columns[1]  # Default value
+            value=df.columns[1],
+            clearable=False
         )
     ], style={'width': '48%', 'display': 'inline-block'}),
     
