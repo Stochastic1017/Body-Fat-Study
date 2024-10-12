@@ -50,15 +50,21 @@ first_layout = [
 
 we have:
 
-$$D = \\frac{1}{(A/a) + (B/b)}$$
+$$
+D = \\frac{1}{(A/a) + (B/b)}
+$$
 
 Solving for $B$, we find:
 
-$$B=\\frac{1}{D} \\times \\bigg[\\frac{ab}{(a-b)}\\bigg] - \\bigg[\\frac{b}{a-b}\\bigg]$$
+$$
+B=\\frac{1}{D} \\times \\bigg[\\frac{ab}{(a-b)}\\bigg] - \\bigg[\\frac{b}{a-b}\\bigg]
+$$
 
 Using the estimes $a=1.10\\text{ gm}/\\text{cm}^3$ and $b=0.90\\text{ gm}/\\text{cm}^3$  (see Katch and McArdle (1977), p. 111 or Wilmore (1976), p. 123) we come up with "Siri's equation":
 
-$$\\text{Percentage of Body Fat (i.e. 100 $\\times B$)}=\\frac{495}{D}-450$$
+$$
+\\text{Percentage of Body Fat (i.e. 100 $\\times B$)}=\\frac{495}{D}-450
+$$
 
 The technique of underwater weighing "computes body volume as the difference between body weight measured in air and weight measured during water submersion. 
 In other words, body volume is equal to the loss of weight in water with the appropriate
@@ -66,7 +72,9 @@ temperature correction for the water's density" (Katch and McArdle (1977), p. 11
 
 Using this technique:
                  
-$$\\text{Body Density} = \\frac{\\text{WA}}{\\frac{\\text{WA} - \\text{WW}}{\\text{c.f.}} - \\text{LV}}$$
+$$
+\\text{Body Density} = \\frac{\\text{WA}}{\\frac{\\text{WA} - \\text{WW}}{\\text{c.f.}} - \\text{LV}}
+$$
 
 where (Katch and McArdle (1977), p. 115)
                  
