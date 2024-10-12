@@ -11,32 +11,40 @@ import statsmodels.api as sm
 df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Study/refs/heads/main/dataset/BodyFat.csv')
 
 # Define the layout for the scatter plot with histograms
+# Define the layout for the scatter plot with histograms
 scatter_plot_layout = html.Div([
     html.H3("Interactable Density Histogram and Scatterplot:", 
             style={'text-align': 'left', 'color': '#293241'}),
-    html.Div([
-        html.Div([
+
+    html.Div([  # Wrap the dropdowns
+        html.Div([  # X-axis dropdown
             html.P("X-axis feature:"),
             dcc.Dropdown(
                 id='x-axis-feature',
                 options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                value=df.columns[6],
+                value=df.columns[6],  # Set default value
                 clearable=False
             ),
         ], style={'width': '48%', 'display': 'inline-block'}),
 
-        html.Div([
+        html.Div([  # Y-axis dropdown
             html.P("Y-axis feature:"),
             dcc.Dropdown(
                 id='y-axis-feature',
                 options=[{'label': col, 'value': col} for col in df.columns[1:]],
-                value=df.columns[1],
+                value=df.columns[1],  # Set default value
                 clearable=False
             ),
         ], style={'width': '48%', 'float': 'right', 'display': 'inline-block'})
     ]),
-    dcc.Graph(id='scatter-hist-plot', style={'height': '600px'}),
-], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'})
+
+    # Scatterplot with fixed height
+    dcc.Graph(
+        id='scatter-hist-plot', 
+        style={'height': '800px', 'width': '100%', 'overflow': 'hidden'}
+    ),
+
+], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px', 'padding-top': '10px'})
 
 # Callback for updating the scatter plot with histograms and OLS regression
 @callback(

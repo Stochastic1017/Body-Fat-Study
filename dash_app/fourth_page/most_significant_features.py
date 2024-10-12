@@ -11,17 +11,6 @@ sys.path.append(os.getcwd())
 from model.goodness_of_fit import finding_most_significant_features
 from model.prior_bmi_model_based_anomaly_detection import find_anomalies, clean_df
 
-# Function to create the table layout
-import os
-import sys
-import pandas as pd
-import plotly.graph_objects as go
-from dash import html, dcc
-
-# Ensure the current working directory is part of the path
-sys.path.append(os.getcwd())
-
-from model.goodness_of_fit import finding_most_significant_features
 
 # Function to create the table layout
 def create_best_predictors_table(X, y, alpha=0.05):
