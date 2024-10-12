@@ -44,7 +44,7 @@ second_layout = html.Div([
         }),
 
         # Next Page button
-        dcc.Link('Go to Next Page', href='/third_page.vif_model_description_visualization', 
+        dcc.Link('Go to Next Page', href='/third_page.data_cleaning_imputation_description', 
                  style={
                     'color': '#ee6c4d',
                     'fontSize': '20px',
