@@ -18,7 +18,7 @@ anomaly_detection_layout = html.Div([
         min=1,
         max=20,
         step=1,
-        value=8,
+        value=11,
         marks={i: f'{i}%' for i in range(1, 21)}
     ),
     html.Div(id='threshold-value', style={'text-align': 'center', 'margin-bottom': '10px'}),

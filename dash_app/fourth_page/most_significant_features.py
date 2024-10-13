@@ -58,14 +58,14 @@ def create_best_predictors_table(X, y, alpha=0.05):
     # Create the table using Plotly
     fig = go.Figure(data=[go.Table(
         header=dict(values=['Predictor', 'p-value', 'Adjusted Alpha'],
-                    fill_color='lightgrey',
+                    fill_color='#293241',
                     align='center',
-                    font=dict(size=12)),
+                    font=dict(color='white', size=12)),
                     
         cells=dict(values=[table_df['Predictor'], table_df['p-value'], table_df['Adjusted Alpha']],
                 fill_color=[['white'] * m, ['white'] * m, cell_colors[0]],
                 align='center',
-                font=dict(size=12))
+                font=dict(size=11))
     )])
 
     # Update layout for better visuals
@@ -73,22 +73,21 @@ def create_best_predictors_table(X, y, alpha=0.05):
         title="Holm-Bonferroni Adjusted Alpha and p-values",
         title_x=0.5,  # Center the title
         margin=dict(l=50, r=50, t=50, b=30),  # Adjust margins
-        height=400,  # Set a fixed height for the table
-        autosize=True
+        height=220,  # Set a fixed height for the table
+        autosize=False
     )
     # Dash layout with the table
     best_predictors_table_layout = html.Div([
-        dcc.Graph(figure=fig)
+        dcc.Graph(id='most-significant-features-table', 
+                  figure=fig, 
+                  style={'height': '220px'}  # Adjusted height for the table
+                  )
     ])
 
     return best_predictors_table_layout
 
 # Load the data
-df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Study/refs/heads/main/dataset/BodyFat.csv')
-anomalies = find_anomalies(df, threshold=8)
-
-# Cleaned the data
-cleaned_df = clean_df(df, anomalies)
+cleaned_df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Study/refs/heads/main/dataset/cleaned_bodyfat_11.csv')
 
 # Seperate features and response
 X = cleaned_df[["AGE", "ADIPOSITY", "CHEST", "ABDOMEN", "THIGH"]]

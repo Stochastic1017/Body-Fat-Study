@@ -48,8 +48,8 @@ def run_regression_and_summary(X_train, y_train, X_test, y_test):
     coef_age = model.params.get('AGE', None)
     p_value_age = model.pvalues.get('AGE', None)
     
-    coef_adiposity = model.params.get('ADIPOSITY', None)
-    p_value_adiposity = model.pvalues.get('ADIPOSITY', None)
+    coef_adiposity = model.params.get('ABDOMEN', None)
+    p_value_adiposity = model.pvalues.get('ABDOMEN', None)
 
     # Create a dictionary with the required outputs
     results = {
@@ -57,8 +57,8 @@ def run_regression_and_summary(X_train, y_train, X_test, y_test):
         'p-value (Intercept)': p_value_intercept,
         'Coefficient (AGE)': coef_age,
         'p-value (AGE)': p_value_age,
-        'Coefficient (ADIPOSITY)': coef_adiposity,
-        'p-value (ADIPOSITY)': p_value_adiposity,
+        'Coefficient (ABDOMEN)': coef_adiposity,
+        'p-value (ABDOMEN)': p_value_adiposity,
         'R-squared (Test set)': r_squared_test,
         'Adjusted R-squared (Test set)': adj_r_squared_test,
         'RMSE (Test set)': rmse_test,
@@ -74,67 +74,6 @@ def run_regression_and_summary(X_train, y_train, X_test, y_test):
     }
     
     return results
-
-# Function to calculate VIF for a subset of features
-def calculate_vif(X_subset):
-    if X_subset.shape[1] == 1:
-        # If there's only one feature, VIF can't be calculated, so return np.nan
-        return np.nan
-    else:
-        vif_data = pd.DataFrame()
-        vif_data['Feature'] = X_subset.columns
-        vif_data['VIF'] = [variance_inflation_factor(X_subset.values, i) for i in range(X_subset.shape[1])]
-        return vif_data['VIF'].mean()
-
-# Function to fit all combinations of features
-def fit_all_combinations(X_train, X_test, y_train, y_test):
-    feature_names = X_train.columns
-    all_combinations = []
-    
-    # Generate all non-empty subsets of features
-    for r in range(1, len(feature_names) + 1):
-        subsets = itertools.combinations(feature_names, r)
-        all_combinations.extend(subsets)
-    
-    # List to store results
-    results = []
-    
-    for combo in all_combinations:
-        # Select the subset of features
-        X_train_subset = X_train[list(combo)]
-        X_test_subset = X_test[list(combo)]
-        
-        # Add a constant term to the model (intercept)
-        X_train_subset = sm.add_constant(X_train_subset)
-        X_test_subset = sm.add_constant(X_test_subset)
-        
-        # Fit the model
-        model = sm.OLS(y_train, X_train_subset).fit()
-        
-        # Make predictions on the test set
-        y_pred = model.predict(X_test_subset)
-        
-        # Calculate R-squared, RMSE, and VIF
-        r_squared = model.rsquared
-        rmse = root_mean_squared_error(y_test, y_pred)
-        mean_vif = calculate_vif(X_train_subset.drop(columns='const'))  # Drop intercept for VIF calculation
-        
-        # Store the results
-        results.append({
-            'Features': ', '.join(combo),
-            'R-squared': np.round(r_squared, 3),
-            'RMSE': np.round(rmse, 3),
-            'Mean VIF': np.round(mean_vif, 3)
-        })
-    
-    # Create a DataFrame from the results
-    results_df = pd.DataFrame(results)
-    
-    # Sort the DataFrame by RMSE from lowest to highest
-    results_df = results_df.sort_values(by='RMSE', ascending=True).reset_index(drop=True)
-    
-    return results_df
-
 
 # Helper function to calculate LOESS-like smooth line
 def loess_smoothing(x, y, smoothing_factor=1.5):  # Increased smoothing factor

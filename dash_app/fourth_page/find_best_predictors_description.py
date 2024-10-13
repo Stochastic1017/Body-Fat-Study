@@ -14,19 +14,19 @@ fourth_layout = html.Div([
     dcc.Markdown('''
         To improve model accuracy and efficiency, we begin by removing features that are either redundant or provide little value to body fat estimation.
 
-        * DENSITY: This feature is excluded as it requires underwater weighing, a process that is expensive and impractical for most body fat estimation applications.
+        * $$\\texttt{DENSITY}$$: This feature is excluded as it requires underwater weighing, a process that is expensive and impractical for most body fat estimation applications.
 
-        * WEIGHT, HEIGHT: Since ADIPOSITY is calculated directly from WEIGHT and HEIGHT, these features are removed to avoid redundancy and prevent multicollinearity in the model.
+        * $$\\texttt{WEIGHT}$$, $$\\texttt{HEIGHT}$$: Since $$\\texttt{ADIPOSITY}$$ (Body Mass Index) is a function of $$\\texttt{WEIGHT}$$ and $$\\texttt{HEIGHT}$$, these features are removed to avoid redundancy and prevent multicollinearity in the model.
 
-        * NECK, KNEE, ANKLE, BICEPS, FOREARM, WRIST, HIP: These distal limb measurements are less directly related to body fat percentage compared to key circumferences like ABDOMEN and CHEST. Removing them reduces noise and complexity, focusing the model on more predictive features.
+        * $$\\texttt{NECK}$$, $$\\texttt{KNEE}$$, $$\\texttt{ANKLE}$$, $$\\texttt{BICEPS}$$, $$\\texttt{FOREARM}$$, $$\\texttt{WRIST}$$, $$\\texttt{HIP}$$: These distal limb measurements are less directly related to body fat percentage compared to key circumferences like ABDOMEN and CHEST. Removing them reduces noise and complexity, focusing the model on more predictive features.
 
         Therefore, we will choose the best predictors for our model from the following: AGE, ADIPOSITY, CHEST, ABDOMEN, and THIGH.
-'''),
+''', mathjax=True),
 
     html.H3("Goodness of fit test to test if any predictor is useful:",
             style={'text-align': 'left', 'color': '#293241'}),
     
-    dcc.Markdown('''Let $\\mathcal{X} =$ {AGE, ADIPOSITY, CHEST, ABDOMEN, THIGH} be the set of our features.
+    dcc.Markdown('''Let $\\mathcal{X} =$ {$$\\texttt{AGE}$$, $$\\texttt{ADIPOSITY}$$, $$\\texttt{CHEST}$$, $$\\texttt{ABDOMEN}$$, $$\\texttt{THIGH}$$} be the set of our features.
 ''', mathjax=True),
 
     dcc.Markdown('''For feature $i \\in \\mathcal{X}$, let $\\beta_{i}$ be the corresponding regression coefficient, consider the following null and alternate hypothesis:              
@@ -92,12 +92,26 @@ fourth_layout = html.Div([
     html.H3("ANOVA-Based Stepwise Feature Selection with Holm-Bonferroni Correction:",
             style={'text-align': 'left', 'color': '#293241'}),
 
-    dcc.Markdown('''
+dcc.Markdown('''
     To determine the most significant predictors in our model, we use a combination of **F-tests** and the **Holm-Bonferroni correction**.
 
     1. **F-Tests for each predictor**: 
     * For each predictor, we create a reduced model by excluding that variable and compare it to the full model using an Analysis of Variance (**ANOVA**). 
     * The *F-test* evaluates whether the excluded predictor contributes significantly to explaining the variance in the response variable.
+    
+    * The null and alternative hypotheses for the F-test (where $$j$$ is the predictor of interest) are:
+
+    ''', mathjax=True),
+    
+html.Div([
+    dcc.Markdown('''
+    $$H_0: \\beta_{j} = 0$$ (The predictor $j$ has no effect, i.e., the variable is not useful)
+
+    $$H_1: \\beta_{j} \\neq 0$$ (The predictor $j$ has an effect, i.e., the variable is useful)
+    ''', mathjax=True)
+], style={'text-align': 'center'}),
+
+dcc.Markdown('''
     * The *F-statistic* is calculated as:
     $$
     F = \\frac{\\left( \\text{SSR}_{\\text{reduced}} - \\text{SSR}_{\\text{full}} \\right) / (p_{\\text{reduced}} - p_{\\text{full}})}{\\text{SSR}_{\\text{full}} / (n - p_{\\text{full}})}
@@ -138,9 +152,9 @@ fourth_layout = html.Div([
             style={'text-align': 'left', 'color': '#293241'}),
 
     dcc.Markdown('''
-    AGE, ADIPOSITY, and ABDOMEN are the statistically significant feature according to the holm-bonferroni corrected goodness of fit test.
-    CHEST and THIGH does not appear to be statistically significant based on their high p-values.
-'''),
+    $$\\texttt{ABDOMEN}$$ and $$\\texttt{AGE}$$ are the statistically significant feature according to the holm-bonferroni corrected goodness of fit test.
+    Therefore, we now fit a multiple linear regression model with these features.
+''', mathjax=True),
 
     html.Div([
         # Previous Page button
