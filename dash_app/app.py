@@ -6,6 +6,7 @@ from first_page.introduction_description import first_layout
 from second_page.exploratory_data_visualization import second_layout
 from third_page.data_cleaning_imputation_description import third_layout
 from fourth_page.find_best_predictors_description import fourth_layout
+from fifth_page.mlr_description import fifth_layout
 
 app = Dash(__name__, 
            suppress_callback_exceptions=True, 
@@ -29,6 +30,8 @@ def display_page(pathname):
         return third_layout
     elif pathname == '/fourth_page.find_best_predictors_description':
         return fourth_layout
+    elif pathname == '/fifth_page.mlr_description':
+        return fifth_layout
     else:
         return landing_layout
 

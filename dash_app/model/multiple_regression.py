@@ -167,7 +167,7 @@ def generate_diagnostic_plots(results):
     # 1. Residuals vs Fitted plot
     fig.add_trace(go.Scatter(
         x=fitted_values, y=residuals, mode='markers',
-        marker=dict(color='black', size=5, opacity=0.8),
+        marker=dict(color='black', size=8, opacity=0.5),
         name='Residuals vs Fitted'
     ), row=1, col=1)
 
@@ -175,7 +175,7 @@ def generate_diagnostic_plots(results):
     lowess_result = lowess(residuals, fitted_values, frac=2/3, it=5)
     fig.add_trace(go.Scatter(
         x=lowess_result[:, 0], y=lowess_result[:, 1], mode='lines',
-        line=dict(color='red', width=2), showlegend=False
+        line=dict(color='red', width=2), showlegend=True
     ), row=1, col=1)
 
     # 2. Normal Q-Q plot (Standardized residuals)
@@ -183,19 +183,19 @@ def generate_diagnostic_plots(results):
     qq_sample = np.sort(standardized_residuals)
     fig.add_trace(go.Scatter(
         x=qq_theoretical, y=qq_sample, mode='markers',
-        marker=dict(color='black', size=5, opacity=0.8),
+        marker=dict(color='black', size=8, opacity=0.5),
         name='Normal Q-Q'
     ), row=1, col=2)
     fig.add_trace(go.Scatter(
         x=qq_theoretical, y=qq_theoretical, mode='lines',
-        line=dict(color='red', width=2), showlegend=False
+        line=dict(color='red', width=2), showlegend=True
     ), row=1, col=2)
 
     # 3. Scale-Location plot (Square root of standardized residuals vs fitted values)
     sqrt_standardized_residuals = np.sqrt(np.abs(standardized_residuals))
     fig.add_trace(go.Scatter(
         x=fitted_values, y=sqrt_standardized_residuals, mode='markers',
-        marker=dict(color='black', size=5, opacity=0.8),
+        marker=dict(color='black', size=8, opacity=0.5),
         name='Scale-Location'
     ), row=2, col=1)
 
@@ -203,13 +203,13 @@ def generate_diagnostic_plots(results):
     lowess_result = lowess(sqrt_standardized_residuals, fitted_values, frac=2/3, it=5)
     fig.add_trace(go.Scatter(
         x=lowess_result[:, 0], y=lowess_result[:, 1], mode='lines',
-        line=dict(color='red', width=2), showlegend=False
+        line=dict(color='red', width=2), showlegend=True
     ), row=2, col=1)
 
     # 4. Residuals vs Leverage plot
     fig.add_trace(go.Scatter(
         x=leverage, y=standardized_residuals, mode='markers',
-        marker=dict(color='black', size=5, opacity=0.8),
+        marker=dict(color='black', size=8, opacity=0.5),
         name='Residuals vs Leverage'
     ), row=2, col=2)
 
