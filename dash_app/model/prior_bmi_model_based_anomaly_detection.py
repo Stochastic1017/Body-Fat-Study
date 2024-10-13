@@ -32,7 +32,7 @@ def find_anomalies(df, threshold):
     anomalies (pd.DataFrame): DataFrame containing rows where BODYFAT values 
                               significantly deviate from predicted body fat.
     """
-    required_columns = ['IDNO', 'BODYFAT', 'ADIPOSITY', 'AGE']
+    required_columns = ['IDNO', 'BODYFAT', 'ABDOMEN', 'AGE']
     
     # Check if required columns are present
     if not all(col in df.columns for col in required_columns):
@@ -44,7 +44,7 @@ def find_anomalies(df, threshold):
     for i, row in df.iterrows():
         idno = row['IDNO']
         bodyfat_actual = row['BODYFAT']
-        adiposity = row['ADIPOSITY']
+        adiposity = row['ABDOMEN']
         age = row['AGE']
 
         bodyfat_predicted = prior_bmi_model(adiposity, age)

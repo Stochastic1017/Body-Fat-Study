@@ -18,9 +18,9 @@ fourth_layout = html.Div([
 
         * $$\\texttt{WEIGHT}$$, $$\\texttt{HEIGHT}$$: Since $$\\texttt{ADIPOSITY}$$ (Body Mass Index) is a function of $$\\texttt{WEIGHT}$$ and $$\\texttt{HEIGHT}$$, these features are removed to avoid redundancy and prevent multicollinearity in the model.
 
-        * $$\\texttt{NECK}$$, $$\\texttt{KNEE}$$, $$\\texttt{ANKLE}$$, $$\\texttt{BICEPS}$$, $$\\texttt{FOREARM}$$, $$\\texttt{WRIST}$$, $$\\texttt{HIP}$$: These distal limb measurements are less directly related to body fat percentage compared to key circumferences like ABDOMEN and CHEST. Removing them reduces noise and complexity, focusing the model on more predictive features.
+        * $$\\texttt{NECK}$$, $$\\texttt{KNEE}$$, $$\\texttt{ANKLE}$$, $$\\texttt{BICEPS}$$, $$\\texttt{FOREARM}$$, $$\\texttt{WRIST}$$, $$\\texttt{HIP}$$: These distal limb measurements are less directly related to body fat percentage compared to key circumferences like $$\\texttt{ABDOMEN}$$ and $$\\texttt{CHEST}$$. Removing them reduces noise and complexity, focusing the model on more predictive features.
 
-        Therefore, we will choose the best predictors for our model from the following: AGE, ADIPOSITY, CHEST, ABDOMEN, and THIGH.
+        Therefore, we will choose the best predictors for our model from the following: $$\\texttt{AGE}$$, $$\\texttt{ADIPOSITY}$$, $$\\texttt{CHEST}$$, $$\\texttt{ABDOMEN}$$, and $$\\texttt{THIGH}$$.
 ''', mathjax=True),
 
     html.H3("Goodness of fit test to test if any predictor is useful:",

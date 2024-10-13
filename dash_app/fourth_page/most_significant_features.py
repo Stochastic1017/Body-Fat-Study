@@ -82,7 +82,9 @@ def create_best_predictors_table(X, y, alpha=0.05):
                   figure=fig, 
                   style={'height': '220px'}  # Adjusted height for the table
                   )
-    ])
+    ], style={'display': 'flex', 'justify-content': 'center', 
+       'align-items': 'center', 'width': '100%'}  # Center the table
+    )
 
     return best_predictors_table_layout
 

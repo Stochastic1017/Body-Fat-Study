@@ -29,7 +29,7 @@ third_layout = html.Div([
         The equation used is given below (after substituting $$\\texttt{sex}: 1$$ for males):
         
         $$
-        \\texttt{BODYFAT} = 48.1 - 848 \\times (1/\\texttt{ADIPOSITY}) + 0.079 \\times \\texttt{AGE} + 0.05 \\times \\texttt{AGE} + 39.0 \\times (1/\\texttt{ADIPOSITY})
+        \\hat{\\texttt{BODYFAT}} = 48.1 - 848 \\times (1/\\texttt{ADIPOSITY}) + 0.079 \\times \\texttt{AGE} + 0.05 \\times \\texttt{AGE} + 39.0 \\times (1/\\texttt{ADIPOSITY})
         $$
                  
         We compare these model-derived body fat estimates with the actual $$\\texttt{BODYFAT}$$ values in the dataset. 

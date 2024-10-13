@@ -46,18 +46,18 @@ fifth_layout = html.Div([
 
         # Next Page button
         dcc.Link('Go to Next Page', href='/landing_page.cover_page', style={
-            'color': '#ee6c4d',
-            'fontSize': '20px',
-            'textDecoration': 'none',
-            'fontWeight': 'bold',
-            'padding': '10px',
-            'border': '2px solid #ee6c4d',
-            'borderRadius': '10px',
-            'backgroundColor': '#f7f7f7',
-            'textAlign': 'center',
-            'display': 'inline-block',
-            'transition': 'all 0.3s ease',
-            'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
+                    'color': '#ee6c4d',
+                    'fontSize': '20px',
+                    'textDecoration': 'none',
+                    'fontWeight': 'bold',
+                    'padding': '10px',
+                    'border': '2px solid #ee6c4d',
+                    'borderRadius': '10px',
+                    'backgroundColor': '#f7f7f7',
+                    'textAlign': 'center',
+                    'display': 'inline-block',
+                    'transition': 'all 0.3s ease',
+                    'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
         })
     ], style={'display': 'flex', 'justifyContent': 'space-between', 'padding': '20px'})
 ])

@@ -14,23 +14,23 @@ The commonly available measurements include age, weight, height, bmi, and variou
 body circumference measurements. In particular, the variables listed below (from left to
 right in the data set) are:
 
-* ID number of individual: `IDNO`
-* Percent body fat from Siri's (1956) equation: `BODYFAT`
-* Density determined from underwater weighing: `DENSITY`
-* Age (years): `AGE`
-* Weight (lbs): `WEIGHT`
-* Height (inches): `HEIGHT`
-* Adioposity (bmi): `ADIPOSITY`
-* Neck circumference (cm): `NECK`
-* Chest circumference (cm): `CHEST`
-* Abdomen 2 circumference (cm): `ABDOMEN`
-* Hip circumference (cm): `HIP`
-* Thigh circumference (cm): `THIGH`
-* Knee circumference (cm): `KNEE`
-* Ankle circumference (cm): `ANKLE`
-* Biceps (extended) circumference (cm): `BICEPS`
-* Forearm circumference (cm): `FOREARM`
-* Wrist circumference (cm): `WRIST`   
+* ID number of individual: $$\\texttt{IDNO}$$
+* Percent body fat from Siri's (1956) equation: $$\\texttt{BODYFAT}$$
+* Density determined from underwater weighing: $$\\texttt{DENSITY}$$
+* Age (years): $$\\texttt{AGE}$$
+* Weight (lbs): $$\\texttt{WEIGHT}$$
+* Height (inches): $$\\texttt{HEIGHT}$$
+* Adioposity (bmi): $$\\texttt{ADIPOSITY}$$
+* Neck circumference (cm): $$\\texttt{NECK}$$
+* Chest circumference (cm): $$\\texttt{CHEST}$$
+* Abdomen 2 circumference (cm): $$\\texttt{ABDOMEN}$$
+* Hip circumference (cm): $$\\texttt{HIP}$$
+* Thigh circumference (cm): $$\\texttt{THIGH}$$
+* Knee circumference (cm): $$\\texttt{KNEE}$$
+* Ankle circumference (cm): $$\\texttt{ANKLE}$$
+* Biceps (extended) circumference (cm): $$\\texttt{BICEPS}$$
+* Forearm circumference (cm): $$\\texttt{FOREARM}$$
+* Wrist circumference (cm): $$\\texttt{WRIST}$$   
 
 Measurement standards are listed in Benhke and Wilmore (1974), pp. 45-48 where, for
 instance, the abdomen 2 circumference is measured "laterally, at the level of the iliac
