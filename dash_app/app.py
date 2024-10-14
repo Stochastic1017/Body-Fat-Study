@@ -11,6 +11,7 @@ from fifth_page.mlr_description import fifth_layout
 app = Dash(__name__, 
            suppress_callback_exceptions=True, 
            external_scripts=['https://cdn.plot.ly/plotly-latest.min.js'])
+server = app.server
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
