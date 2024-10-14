@@ -6,10 +6,6 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import pandas as pd
 import plotly.graph_objects as go
 from dash import html, dcc
-
-# Ensure the current working directory is part of the path
-sys.path.append(os.getcwd())
-
 from model.goodness_of_fit import finding_most_significant_features
 from model.prior_bmi_model_based_anomaly_detection import find_anomalies, clean_df
 
@@ -53,6 +49,9 @@ def create_best_predictors_table(X, y, alpha=0.05):
 
     # Check if p-value is less than adjusted alpha
     table_df['Significant'] = table_df['p-value'] < table_df['Adjusted Alpha']
+
+    # Round df to nearest digits
+    table_df = table_df.round(5)
 
     # Create colors for the cells: green for significant, red for non-significant
     cell_colors = [['lightgreen' if sig else 'lightcoral' for sig in table_df['Significant']]]
