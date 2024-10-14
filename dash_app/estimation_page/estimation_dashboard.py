@@ -121,7 +121,7 @@ estimation_layout = html.Div([
             }),
 
             html.Label("Enter Abdomen Circumference (centimeters)", style={'color': '#EE6C4D', 'font-weight': 'bold', 'font-size': '1.1em', 'margin-bottom': '10px'}),
-            dcc.Input(id='input-abdomen', type='number', min=38, step=0.1, placeholder="Abdomen Circumference (minimum 38 cm)", style={
+            dcc.Input(id='input-abdomen', type='number', min=60, step=0.1, placeholder="Abdomen Circumference (minimum 60 cm)", style={
                 'width': '100%', 'padding': '10px', 'border-radius': '6px', 'border': '2px solid #CCCCCC',
                 'box-shadow': '3px 3px 6px rgba(0, 0, 0, 0)', 'margin-bottom': '15px'
             }),
