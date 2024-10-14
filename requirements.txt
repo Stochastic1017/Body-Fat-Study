@@ -7,7 +7,7 @@ dash-mantine-components==0.12.0
 dash-table==5.0.0
 dash-tools==1.12.0
 plotly==5.15.0
-pandas==2.1.4+dfsg
+pandas==2.1.4
 numpy==1.26.4
-statsmodels==0.14.1+dfsg
-scikit-learn==1.4.1.post1
+statsmodels==0.14.1
+scikit-learn==1.4.1
