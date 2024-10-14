@@ -60,6 +60,9 @@ def update_anomaly_table(threshold):
     # Call the anomaly detection function with the selected threshold
     anomalies_df = find_anomalies(df, threshold=threshold)
 
+    # Round all values to 4 decimal places
+    anomalies_df = anomalies_df.round(1)
+
     # Update the table data and columns
     columns = [{"name": col, "id": col} for col in anomalies_df.columns]
     data = anomalies_df.to_dict('records')
