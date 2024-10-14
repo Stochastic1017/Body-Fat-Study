@@ -184,13 +184,13 @@ def two_dim_regression(df, results, feature_1, feature_2):
     # Adjust the layout to make the plot more cube-like by setting equal axis ranges
     plot_layout = go.Layout(
         scene=dict(
-            xaxis=dict(title=feature_1, range=[df[feature_1].min()-3, 
+            xaxis=dict(title=f"{feature_1} (in years)", range=[df[feature_1].min()-3, 
                                                df['AGE'].max()+3],  # Adjust x range
                     nticks=10),
-            yaxis=dict(title=feature_2, range=[df[feature_2].min()-3, 
+            yaxis=dict(title=f"{feature_2} (in cm)", range=[df[feature_2].min()-3, 
                                                df[feature_2].max()+3],  # Adjust y range
                     nticks=10),
-            zaxis=dict(title='Bodyfat (%)', range=[df['BODYFAT'].min()-3, 
+            zaxis=dict(title='Bodyfat (in %)', range=[df['BODYFAT'].min()-3, 
                                                    df['BODYFAT'].max()+3],  # Adjust z range
                     nticks=10),
             aspectmode='cube'  # This ensures the plot will be more cube-like
