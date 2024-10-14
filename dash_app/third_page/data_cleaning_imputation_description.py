@@ -1,4 +1,8 @@
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from dash import dcc, html
 from third_page.anomaly_bodyfat_table import anomaly_detection_layout
 
