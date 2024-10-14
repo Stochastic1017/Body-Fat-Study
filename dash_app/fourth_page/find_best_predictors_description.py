@@ -1,4 +1,8 @@
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from dash import dcc, html
 from fourth_page.f_statistic_graph import f_test_table
 from fourth_page.most_significant_features import best_predictors_table
