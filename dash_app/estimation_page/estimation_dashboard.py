@@ -53,6 +53,9 @@ def generate_number_line_plot(age, body_fat):
         name="Your Body Fat",
     ))
 
+    # Adjust the bifurcation lines slightly to prevent overlap
+    adjusted_thresholds = [thresholds[0] - 0.05, thresholds[1] + 0.05, thresholds[2] - 0.05]
+
     # Customize the layout
     fig.update_layout(
         xaxis=dict(
@@ -73,15 +76,13 @@ def generate_number_line_plot(age, body_fat):
         ),
         height=200,
         margin=dict(l=10, r=10, t=30, b=30),
-        shapes=[dict(
-            type="line", 
-            x0=0,  # Start from 0
-            x1=50,  # End at 50
-            y0=0.5, 
-            y1=0.5, 
-            line=dict(color="black", width=2),
-            layer="below"  # Place the line behind the marker
-        )],
+        shapes=[
+            # Bifurcation lines, adjusted slightly to prevent overlap
+            dict(type="line", x0=adjusted_thresholds[0], x1=adjusted_thresholds[0], y0=0, y1=1, line=dict(color="black", width=2)),
+            dict(type="line", x0=adjusted_thresholds[1], x1=adjusted_thresholds[1], y0=0, y1=1, line=dict(color="black", width=2)),
+            dict(type="line", x0=adjusted_thresholds[2], x1=adjusted_thresholds[2], y0=0, y1=1, line=dict(color="black", width=2)),
+            dict(type="line", x0=0, x1=50, y0=0.5, y1=0.5, line=dict(color="black", width=2))  # Main line across the plot
+        ],
         title=dict(text=f"<b>Estimated Bodyfat:<b> {body_fat:.1f}%", x=0.5, y=0.95),
         showlegend=False,
         plot_bgcolor='#FFFFFF',  # Transparent background
@@ -89,6 +90,7 @@ def generate_number_line_plot(age, body_fat):
     )
 
     return fig
+
 
 # Layout for the app
 estimation_layout = html.Div([
