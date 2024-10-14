@@ -20,7 +20,7 @@ fifth_layout = html.Div([
                  
     Our final multiple linear regression model equation:
     $$
-    \\hat{\\texttt{BODYFAT}} = -31.8595 + (0.0554) \\cdot \\texttt{AGE} + (0.5281) \\cdot \\texttt{ADIPOSITY}
+    \\hat{\\texttt{BODYFAT}} = -31.8595 + (0.0554) \\cdot \\texttt{AGE} + (0.5281) \\cdot \\texttt{ABDOMEN}
     $$
 ''', mathjax=True),
 
