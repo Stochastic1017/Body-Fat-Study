@@ -20,6 +20,6 @@ landing_layout = html.Div(
             'border': 'none',
             'cursor': 'pointer',
             'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
-        }), href='/first_page.introduction_description')
+        }), href='/estimation_page.estimation_dashboard')
     ]
 )

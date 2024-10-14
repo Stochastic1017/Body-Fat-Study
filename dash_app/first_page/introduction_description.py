@@ -1,9 +1,5 @@
 
-from dash import html, dcc, dash_table
-import pandas as pd
-
-# Load the data
-df = pd.read_csv('https://raw.githubusercontent.com/Stochastic1017/Body_Fat_Study/refs/heads/main/dataset/BodyFat.csv')
+from dash import html, dcc
 
 first_layout = [
     html.H1("Background, Goals, and Data Description", 

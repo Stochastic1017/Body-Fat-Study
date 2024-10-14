@@ -1,6 +1,7 @@
 
 from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
+from estimation_page.estimation_dashboard import estimation_layout
 from landing_page.cover_page import landing_layout
 from first_page.introduction_description import first_layout
 from second_page.exploratory_data_visualization import second_layout
@@ -22,6 +23,8 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/landing_page.cover_page':
         return landing_layout
+    elif pathname == '/estimation_page.estimation_dashboard':
+        return estimation_layout
     elif pathname == '/first_page.introduction_description':
         return first_layout
     elif pathname == '/second_page.exploratory_data_visualization':

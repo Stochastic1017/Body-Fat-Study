@@ -2,6 +2,7 @@
 from dash import dcc, html
 from fourth_page.f_statistic_graph import f_test_table
 from fourth_page.most_significant_features import best_predictors_table
+from fourth_page.feature_combination_table import combination_table_layout
 
 # Main layout for the fourth page
 fourth_layout = html.Div([
@@ -100,18 +101,15 @@ dcc.Markdown('''
     * The *F-test* evaluates whether the excluded predictor contributes significantly to explaining the variance in the response variable.
     
     * The null and alternative hypotheses for the F-test (where $$j$$ is the predictor of interest) are:
-
-    ''', mathjax=True),
     
-html.Div([
-    dcc.Markdown('''
-    $$H_0: \\beta_{j} = 0$$ (The predictor $j$ has no effect, i.e., the variable is not useful)
+    $$
+    H_0: \\beta_{j} = 0
+    $$
 
-    $$H_1: \\beta_{j} \\neq 0$$ (The predictor $j$ has an effect, i.e., the variable is useful)
-    ''', mathjax=True)
-], style={'text-align': 'center'}),
-
-dcc.Markdown('''
+    $$
+    H_1: \\beta_{j} \\neq 0
+    $$
+    
     * The *F-statistic* is calculated as:
     $$
     F = \\frac{\\left( \\text{SSR}_{\\text{reduced}} - \\text{SSR}_{\\text{full}} \\right) / (p_{\\text{reduced}} - p_{\\text{full}})}{\\text{SSR}_{\\text{full}} / (n - p_{\\text{full}})}
@@ -123,36 +121,57 @@ dcc.Markdown('''
         - $$n$$ is the number of observations.
 
     2. **Holm-Bonferroni Correction**:
-        * To control for the increased risk of Type I errors due to multiple hypothesis testing, we apply the **Holm-Bonferroni correction**.
-        * This method adjusts the significance threshold for each predictor based on the number of comparisons.
-        * The steps of the Holm-Bonferroni correction are:
-            - Sort the p-values from smallest to largest: 
-            $$
-            p_1 \\leq p_2 \\leq \\dots \\leq p_m
-            $$
-            - For each p-value, calculate the adjusted threshold using $$\\alpha$$ (significance level 0.05), $$m$$ (total number of tests), $$i$$ (index of the p-value in the sorted list).
-            $$
-            \\alpha_{\\text{adjusted}} = \\frac{\\alpha}{m - i + 1}
-            $$
-        * Compare each p-value to its corresponding threshold, and reject the null hypothesis if: 
+    * To control for the increased risk of Type I errors due to multiple hypothesis testing, we apply the **Holm-Bonferroni correction**.
+    * This method adjusts the significance threshold for each predictor based on the number of comparisons.
+    * The steps of the Holm-Bonferroni correction are:
+        - Sort the p-values from smallest to largest: 
         $$
-        p_i < \\alpha_{\\text{adjusted}}
+        p_1 \\leq p_2 \\leq \\dots \\leq p_m
         $$
+        - For each p-value, calculate the adjusted threshold using $$\\alpha$$ (significance level 0.05), $$m$$ (total number of tests), $$i$$ (index of the p-value in the sorted list).
+        $$
+        \\alpha_{\\text{adjusted}} = \\frac{\\alpha}{m - i + 1}
+        $$
+    * Compare each p-value to its corresponding threshold, and reject the null hypothesis if: 
+    $$
+    p_i < \\alpha_{\\text{adjusted}}
+    $$
 
     3. **Final Selection**:
-        * Predictors are considered significant if their adjusted p-values remain below the corresponding Holm-Bonferroni threshold.
-        * This approach ensures that only the most informative predictors are retained while controlling for false discoveries.
+    * Predictors are considered significant if their adjusted p-values remain below the corresponding Holm-Bonferroni threshold.
+    * This approach ensures that only the most informative predictors are retained while controlling for false discoveries.
 
     This procedure helps in refining our model by retaining only the variables that add the most value to predicting the target outcome.
 ''', mathjax=True),
 
     best_predictors_table,
 
+    dcc.Markdown('''
+    We can see that, the features $$\\texttt{AGE}$$ and $$\\texttt{ABDOMEN}$$ are the most significant (or useful) predictors for our multiple linear regression model.
+''', mathjax=True),
+
+    html.H3("Feature selection via trade-off analysis of combinations:",
+            style={'text-align': 'left', 'color': '#293241'}),
+
+    dcc.Markdown('''
+    In this alternate feature selection procedure, we evaluate all possible combinations of features to find the optimal subset that maximizes model performance while balancing complexity. The goal is to maximize **R-squared** (explained variance), minimize **RMSE** (prediction error), and reduce **Mean VIF** (multicollinearity).
+
+    We prioritize parsimony by excluding features that add little to the model's performance. When additional features do not substantially improve R-squared or reduce RMSE, we prefer a simpler model to avoid overfitting.
+
+    The trade-off is to balance model accuracy and interpretability by selecting only those features that contribute meaningfully to the model's predictive power.
+    '''),
+
+    combination_table_layout,
+
+    dcc.Markdown('''
+    Similar to the ANOVA-Based Stepwise Feature Selection with Holm-Bonferroni Correction, we find that the feature combination $$\\texttt{AGE}$$ and $$\\texttt{ABDOMEN}$$ gives us the best trade-off between mean VIF and R-squared/RMSE values.
+    ''', mathjax=True),
+
     html.H3("Final features chosen:",
             style={'text-align': 'left', 'color': '#293241'}),
 
     dcc.Markdown('''
-    $$\\texttt{ABDOMEN}$$ and $$\\texttt{AGE}$$ are the statistically significant feature according to the holm-bonferroni corrected goodness of fit test.
+    As $$\\texttt{ABDOMEN}$$ and $$\\texttt{AGE}$$ are not only the most statistically significant feature according to the holm-bonferroni corrected goodness of fit test, but also is the simplest model that minimizes mean VIF while maximizing R-squared (or minimizing RMSE).
     Therefore, we now fit a multiple linear regression model with these features.
 ''', mathjax=True),
 
@@ -174,19 +193,20 @@ dcc.Markdown('''
                     'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'}),
 
         # Next Page button
-        dcc.Link('Go to Next Page', href='/fifth_page.mlr_description', style={
-            'color': '#ee6c4d',
-            'fontSize': '20px',
-            'textDecoration': 'none',
-            'fontWeight': 'bold',
-            'padding': '10px',
-            'border': '2px solid #ee6c4d',
-            'borderRadius': '10px',
-            'backgroundColor': '#f7f7f7',
-            'textAlign': 'center',
-            'display': 'inline-block',
-            'transition': 'all 0.3s ease',
-            'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
+        dcc.Link('Go to Next Page', href='/fifth_page.mlr_description', 
+                 style={
+                    'color': '#ee6c4d',
+                    'fontSize': '20px',
+                    'textDecoration': 'none',
+                    'fontWeight': 'bold',
+                    'padding': '10px',
+                    'border': '2px solid #ee6c4d',
+                    'borderRadius': '10px',
+                    'backgroundColor': '#f7f7f7',
+                    'textAlign': 'center',
+                    'display': 'inline-block',
+                    'transition': 'all 0.3s ease',
+                    'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'
         })
     ], style={'display': 'flex', 'justifyContent': 'space-between', 'padding': '20px'})
 ])
