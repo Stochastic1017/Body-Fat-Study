@@ -1,4 +1,8 @@
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 from estimation_page.estimation_dashboard import estimation_layout
