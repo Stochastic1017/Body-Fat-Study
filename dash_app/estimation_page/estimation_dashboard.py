@@ -1,3 +1,8 @@
+
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 import plotly.graph_objs as go
 from dash import dcc, html, Input, Output, State, callback
 
