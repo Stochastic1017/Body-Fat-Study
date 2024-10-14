@@ -91,7 +91,7 @@ measurements.
 
 html.Div([
     # Previous Page button
-    dcc.Link('Go to Previous Page', href='/landing_page.cover_page', style={
+    dcc.Link('Go Back to Calculator', href='/landing_page.cover_page', style={
         'color': '#ee6c4d',
         'fontSize': '20px',
         'textDecoration': 'none',

@@ -45,7 +45,7 @@ fifth_layout = html.Div([
                     'boxShadow': '3px 3px 5px rgba(0, 0, 0, 0.2)'}),
 
         # Next Page button
-        dcc.Link('Go to Next Page', href='/landing_page.cover_page', style={
+        dcc.Link('Go Back to Calculator', href='/landing_page.cover_page', style={
                     'color': '#ee6c4d',
                     'fontSize': '20px',
                     'textDecoration': 'none',

@@ -19,7 +19,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 results_df = fit_all_combinations(X_train, X_test, y_train, y_test)
 
 # Format numbers to 4 decimal points
-results_df = results_df.applymap(lambda x: f"{x:.4f}" if isinstance(x, (int, float)) else x)
+results_df = results_df.map(lambda x: f"{x:.4f}" if isinstance(x, (int, float)) else x)
 
 # Handle NaN values in the Mean VIF column (replace NaN with 0)
 results_df['Mean VIF'] = pd.to_numeric(results_df['Mean VIF'], errors='coerce').fillna(0)

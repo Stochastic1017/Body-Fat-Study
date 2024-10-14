@@ -19,8 +19,10 @@ correlation_heatmap_layout = html.Div([
         multi=True,
         value=df.columns  # Default features (choose first few columns as default)
     ),
+    html.Div(id='warning-message', style={'color': 'red', 'font-weight': 'bold', 'margin-top': '10px'}),
     dcc.Graph(id='correlation-heatmap', style={'height': '500px'}),
-    dcc.Graph(id='vif-table', style={'height': '400px'}),], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'})
+    dcc.Graph(id='vif-table', style={'height': '400px'}),
+], style={'width': '100%', 'display': 'inline-block', 'padding-bottom': '30px'})
 
 # Function to compute VIF
 def compute_vif(df):
@@ -32,13 +34,16 @@ def compute_vif(df):
 
 # Callback to update correlation heatmap and VIF table based on selected features
 @callback(
-    Output('correlation-heatmap', 'figure'),
-    Output('vif-table', 'figure'),
-    Input('heatmap-features-dropdown', 'value')
+    [Output('correlation-heatmap', 'figure'),
+     Output('vif-table', 'figure'),
+     Output('warning-message', 'children')],
+    [Input('heatmap-features-dropdown', 'value')]
 )
 def update_heatmap_and_vif(selected_features):
-    if not selected_features:  # Fallback in case no features are selected
-        return go.Figure(), go.Figure()
+    if not selected_features or len(selected_features) < 2:
+        warning_message = "Please select at least two features."
+        empty_fig = go.Figure()  # Return empty figures if less than 2 features are selected
+        return empty_fig, empty_fig, warning_message
 
     # Filter the DataFrame based on selected features
     filtered_df = df[selected_features]
@@ -89,4 +94,4 @@ def update_heatmap_and_vif(selected_features):
         template='plotly_white'  # Keep consistent with the plotly white theme
     )
 
-    return heatmap_fig, vif_table_fig
+    return heatmap_fig, vif_table_fig, ""  # Return empty warning message if valid
