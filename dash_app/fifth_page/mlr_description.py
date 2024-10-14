@@ -1,4 +1,8 @@
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from dash import dcc, html
 from fifth_page.mlr_visualization import regression_layout, diagnostic_layout
 
