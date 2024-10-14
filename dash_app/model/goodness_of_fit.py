@@ -1,8 +1,7 @@
 
-import os
 import sys
-
-sys.path.append(os.getcwd())
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from scipy.stats import f
 import statsmodels.api as sm
