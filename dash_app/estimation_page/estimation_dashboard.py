@@ -199,4 +199,3 @@ def update_prediction(n_clicks, age, abdomen):
         return fig
 
     return {}
-    
