@@ -1,4 +1,8 @@
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from dash import dcc, html
 from second_page.box_plot import box_plot_layout
 from second_page.correlation_heatmap import correlation_heatmap_layout
