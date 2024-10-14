@@ -44,13 +44,13 @@ def generate_number_line_plot(age, body_fat):
             font=dict(size=10, color="black"),
         )
 
-    # Add marker for predicted body fat (scatter marker is always on top)
+    # Add marker for predicted body fat
     fig.add_trace(go.Scatter(
         x=[body_fat],
         y=[0.5],
         mode="markers",
         marker=dict(size=16, color="#EE6C4D", symbol="diamond"),
-        name="Your Body Fat",
+        name="Your Body Fat"
     ))
 
     # Adjust the bifurcation lines slightly to prevent overlap
@@ -66,22 +66,22 @@ def generate_number_line_plot(age, body_fat):
             showgrid=True,  # Ensure the grid is shown
             gridcolor='black',  # Set grid color to black
             gridwidth=2,  # Make the grid lines thicker
-            layer="below traces"  # Ensure grid is below the marker
+            layer="below traces"  # Ensure grid is below the traces (like the marker)
         ),
         yaxis=dict(
             showticklabels=False,
             showgrid=False,  # No grid on y-axis
             zeroline=False,
-            layer="below traces"
+            layer="below traces"  # Make sure this is below the scatter trace
         ),
         height=200,
         margin=dict(l=10, r=10, t=30, b=30),
         shapes=[
             # Bifurcation lines, adjusted slightly to prevent overlap
-            dict(type="line", x0=adjusted_thresholds[0], x1=adjusted_thresholds[0], y0=0, y1=1, line=dict(color="black", width=2)),
-            dict(type="line", x0=adjusted_thresholds[1], x1=adjusted_thresholds[1], y0=0, y1=1, line=dict(color="black", width=2)),
-            dict(type="line", x0=adjusted_thresholds[2], x1=adjusted_thresholds[2], y0=0, y1=1, line=dict(color="black", width=2)),
-            dict(type="line", x0=0, x1=50, y0=0.5, y1=0.5, line=dict(color="black", width=2))  # Main line across the plot
+            dict(type="line", x0=adjusted_thresholds[0], x1=adjusted_thresholds[0], y0=0, y1=1, line=dict(color="black", width=2), layer="below"),
+            dict(type="line", x0=adjusted_thresholds[1], x1=adjusted_thresholds[1], y0=0, y1=1, line=dict(color="black", width=2), layer="below"),
+            dict(type="line", x0=adjusted_thresholds[2], x1=adjusted_thresholds[2], y0=0, y1=1, line=dict(color="black", width=2), layer="below"),
+            dict(type="line", x0=0, x1=50, y0=0.5, y1=0.5, line=dict(color="black", width=2), layer="below"),  # Main line across the plot
         ],
         title=dict(text=f"<b>Estimated Bodyfat:<b> {body_fat:.1f}%", x=0.5, y=0.95),
         showlegend=False,
@@ -90,7 +90,6 @@ def generate_number_line_plot(age, body_fat):
     )
 
     return fig
-
 
 # Layout for the app
 estimation_layout = html.Div([
@@ -200,3 +199,4 @@ def update_prediction(n_clicks, age, abdomen):
         return fig
 
     return {}
+    
