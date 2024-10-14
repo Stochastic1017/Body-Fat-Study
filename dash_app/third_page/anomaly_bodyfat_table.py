@@ -1,4 +1,8 @@
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from dash import dash_table, dcc, html, callback
 from dash.dependencies import Input, Output
 from model.prior_bmi_model_based_anomaly_detection import find_anomalies
