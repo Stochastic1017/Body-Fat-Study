@@ -1,4 +1,8 @@
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from dash import dcc, html, Input, Output, callback
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
