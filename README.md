@@ -1,79 +1,64 @@
 # Body Fat Study
 
+## Web-app Link
+
+We’ve developed an interactive web app that not only allows users to easily estimate their body fat percentage but also provides a detailed walkthrough of how the model was created. The app offers an intuitive interface, making it accessible for anyone to use. All the code and resources for the web app are available in our GitHub repository, offering full transparency and flexibility for those interested in exploring or extending the project.
+
+link: https://uw-madison-stat-628-body-fat-study.onrender.com/ 
+
 ## Introduction
 
-Accurate measurement of body fat is inconvenient/costly and it is desirable to have easy methods of estimating body fat that are not inconvenient/costly. In this project, we come up with a simple, robust, and accurate model (i.e. “rule-of-thumb”) to estimate percentage of body fat using clinically available measurements. Our “rule-of-thumb” will be based on a real data set of *252* men with measurements of their percentage of body fat and various body circumference measurements.
+The rising prevalence of health issues like obesity and cardiovascular disease has increased the focus on body composition analysis, with body fat percentage serving as a key health indicator. This project analyzes a dataset of physical measurements to develop a predictive model for estimating body fat percentage. After data cleaning and feature selection to address multicollinearity, a multiple linear
+regression model was built. This report outlines the steps of data preprocessing, model fitting, and evaluation of the model’s performance.
 
-## About the Dataset
+## Data Cleaning
 
-A variety of popular health books suggest that the readers assess their health, at least in part, by estimating their percentage of body fat. In Bailey (1994), for instance, the reader can estimate body fat from tables using their age and various skin-fold measurements obtained by using a caliper. Other texts give predictive equations for body fat using body circumference measurements (e.g. abdominal circumference) and/or skin-fold measurements. See, for instance, Behnke and Wilmore (1974), pp. 66-67; Wilmore (1976), p. 247; or Katch and McArdle (1977), pp. 120-132).
+To identify observations with implausible values, we use a prior body fat estimation model to flag inconsistencies.
 
-Percentage of body fat for an individual can be estimated once body density has been determined. Folks (e.g. Siri (1956)) assume that the body consists of two components - lean body tissue and fat tissue. Letting:
+> Healthy percentage body fat ranges: an approach for developing guidelines based on body mass index. Gallagher, Dympna et al. The American Journal of Clinical Nutrition, Volume 72, Issue 3, 694 - 701.
 
-* $D=$ Body Density ($\text{gm}/\text{cm}^3$)
-* $A=$ Proportion of Lean Body Tissue
-* $B=$ Propoertion of Fat Tissue ($A+B=1$)
-* $a=$ Density of Lean Body Tissue ($\text{gm}/\text{cm}^3$)
-* $b=$ Desntiy of Fat Tissue ($\text{gm}/\text{cm}^3$)
+If the absolute difference between the model estimate and the observed data exceeds 11%, the observation is flagged as an anomaly and corrected using the model estimate.
 
-we have:
+## Multiple Linear Regression Model
 
-$$D = \frac{1}{(A/a) + (B/b)}$$
+We selected a multiple linear regression (MLR) model for its simplicity, interpretability, and academic rigor. MLR provides intuitive coefficients that are easily understood by non-experts, while allowing for robust feature selection through well-established statistical methods. Its balance of simplicity and
+explanatory power makes it an ideal choice for this analysis.
 
-Solving for $B$, we find:
+## Feature Selection Procedure
 
-$$B=\frac{1}{D} \times \bigg[\frac{ab}{(a-b)}\bigg] - \bigg[\frac{b}{a-b}\bigg]$$
+We first remove features that are costly, redundant, or irrelevant for body fat estimation, retaining $\texttt{AGE}$, $\texttt{ADIPOSITY}$, $\texttt{ABDOMEN}$, $\texttt{CHEST}$, and $\texttt{THIGH}$. We then apply an ANOVA-based stepwise selection with Holm-Bonferroni correction to control for FWER, identifying AGE and ABDOMEN as the most significant predictors. Finally, we test feature combinations by fitting models and comparing R-squared, RMSE, and mean VIF. Models with more than two features showed excessive multicollinearity, while $\texttt{AGE}$ and $\texttt{ABDOMEN}$ provided the best trade-off between low RMSE and an acceptable mean VIF.
 
-Using the estimes $a=1.10\text{ gm}/\text{cm}^3$ and $b=0.90\text{ gm}/\text{cm}^3$  (see Katch and McArdle (1977), p. 111 or Wilmore (1976), p. 123) we come up with "Siri's equation":
+$$\hat{\texttt{BODYFAT}} = -31.8595 + (0.0554) \cdot \texttt{AGE} + (0.5281) \cdot \texttt{ABDOMEN}$$
 
-$$\text{Percentage of Body Fat (i.e. 100 $\times B$)}=\frac{495}{D}-450$$
+## Model Diagnostics
 
-The technique of underwater weighing "computes body volume as the difference between body weight measured in air and weight measured during water submersion. 
-In other words, body volume is equal to the loss of weight in water with the appropriate
-temperature correction for the water's density" (Katch and McArdle (1977), p. 113).
+After fitting the MLR model with BODYFAT as the response and AGE and ABDOMEN as predictors, one point outside Cook’s distance was removed. Linearity was assessed through residuals vs. fitted plots, confirming the assumption, and a Q-Q plot showed residuals were approximately normal, with minor deviations at the tails. The model achieved an R-squared of $0.6592$ and RMSE of $4.3787$ on test data, with all predictors statistically significant.
 
-Using this technique:
-                 
-$$\\text{Body Density} = \\frac{\\text{WA}}{[(\\text{WA} - \\text{WW})/\\text{c.f.} - \\text{LV}]}$$
+## Model Performance
 
-where (Katch and McArdle (1977), p. 115)
-                 
-* $\\text{WA}=$ Weight in air (kg)
-* $\\text{WW}=$ Weight in water (kg)                 
-* $\\text{c.f.}=$ Water correction factor ($=1$ at $39.2$ deg $F$ as one-gram of water occupies exactly on $\\text{cm}^3$ at this temperature, $=0.997$ at $76-78$ deg $F$)
-* $\\text{LV}=$ Residual Lung Volume (liters)
+### Strengths:
+1. Simple and practical with only two easily measurable predictors.
+2. Intuitive and easily interpretable coefficients. Good balance between predictive power and simplicity (R-squared = 0.6592).
+3. Based on rigorous feature selection and diagnostics.
 
-Other methods of determining body volume are given in Behnke and Wilmore (1974), p.
-22 ff.
+### Weaknesses:
+1. Moderate predictive power, with potential for improvement.
+2. Minor deviations in residuals at the tails suggest a slightly imperfect fit.
 
-Unfortunately, the above process of determining body volume by underwater submersion,
-while accurate, can be cumbersome and difficult to use by doctors who want to and easily
-quickly determine a patient’s body fat percentage based on commonly available
-measurements, even if it means sacrificing some accuracy guaranteed by underwater
-measurements.
-                 
-The commonly available measurements include age, weight, height, bmi, and various
-body circumference measurements. In particular, the variables listed below (from left to
-right in the data set) are:
+## Conclusion/Discussion 
 
-* ID number of individual: `IDNO`
-* Percent body fat from Siri's (1956) equation: `BODYFAT`
-* Density determined from underwater weighing: `DENSITY`
-* Age (years): `AGE`
-* Weight (lbs): `WEIGHT`
-* Height (inches): `HEIGHT`
-* Adioposity (bmi): `ADIPOSITY`
-* Neck circumference (cm): `NECK`
-* Chest circumference (cm): `CHEST`
-* Abdomen 2 circumference (cm): `ABDOMEN`
-* Hip circumference (cm): `HIP`
-* Thigh circumference (cm): `THIGH`
-* Knee circumference (cm): `KNEE`
-* Ankle circumference (cm): `ANKLE`
-* Biceps (extended) circumference (cm): `BICEPS`
-* Forearm circumference (cm): `FOREARM`
-* Wrist circumference (cm): `WRIST`   
+This report analyzed a body fat dataset to predict body fat percentage based on physical measurements. After data cleaning and feature selection, we opted for a linear regression model for its interpretability and adherence to key assumptions. AGE and ADIPOSITY were significant predictors, with meaningful coefficients. Diagnostic checks confirmed model validity, though minor normality deviations and outliers were noted. While the model provides reliable predictions, further refinement or exploring more complex models could address non-linearities and subgroup variations.
 
-Measurement standards are listed in Benhke and Wilmore (1974), pp. 45-48 where, for
-instance, the abdomen 2 circumference is measured "laterally, at the level of the iliac
-crests, and anteriorly, at the umbilicus." 
+## References
+
+* Casella, G. and Berger, R.L. (2002) Statistical Inference. 2nd Edition, Duxbury Press, Pacific Grove.
+
+* Christensen, R. (2019). Plane answers to complex questions: The theory of linear models (5th ed.). Springer.
+  
+* D. A. Belsley, K. Kuh and R. E. Welsch. Regression diagnostics: Identifying influential data and sources of collinearity. John Wiley & Sons, New York, 1980, pp. xv + 292, ISBN 0-471-05856-4.
+  
+* Gallagher, Dympna et al. Healthy percentage body fat ranges: an approach for developing guidelines based on body mass index. The American Journal of Clinical Nutrition, Volume 72, Issue 3, 694 - 701.
+  
+* Holm, S. (1979). A Simple Sequentially Rejective Multiple Test Procedure. Scandinavian Journal of Statistics, 6(2), 65–70. http://www.jstor.org/stable/4615733
+
+* Wilke, C. (2019). Fundamentals of Data Visualization: A Primer on Making Informative and Compelling Figures. Japan: O’Reilly Media.
