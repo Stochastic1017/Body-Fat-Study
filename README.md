@@ -47,7 +47,7 @@ After fitting the MLR model with BODYFAT as the response and AGE and ABDOMEN as 
 
 ## Conclusion/Discussion 
 
-This report analyzed a body fat dataset to predict body fat percentage based on physical measurements. After data cleaning and feature selection, we opted for a linear regression model for its interpretability and adherence to key assumptions. AGE and ADIPOSITY were significant predictors, with meaningful coefficients. Diagnostic checks confirmed model validity, though minor normality deviations and outliers were noted. While the model provides reliable predictions, further refinement or exploring more complex models could address non-linearities and subgroup variations.
+This report analyzed a body fat dataset to predict body fat percentage based on physical measurements. After data cleaning and feature selection, we opted for a linear regression model for its interpretability and adherence to key assumptions. AGE and ABDOMEN were significant predictors, with meaningful coefficients. Diagnostic checks confirmed model validity, though minor normality deviations and outliers were noted. While the model provides reliable predictions, further refinement or exploring more complex models could address non-linearities and subgroup variations.
 
 ## References
 
