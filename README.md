@@ -1,4 +1,4 @@
-# Body Fat Study
+# Body Fat Percentage Prediction using Fine-Tuned Multiple Linear Regression Model
 
 ## Web-app Link
 
