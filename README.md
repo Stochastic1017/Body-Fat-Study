@@ -1,8 +1,8 @@
-# Body Fat Percentage Prediction using Fine-Tuned Multiple Linear Regression Model
+# Statistical Modeling and Deployment of Body Fat Percentage Prediction System
 
 ## Web-app Link
 
-We’ve developed an interactive web app that not only allows users to easily estimate their body fat percentage but also provides a detailed walkthrough of how the model was created. The app offers an intuitive interface, making it accessible for anyone to use. All the code and resources for the web app are available in our GitHub repository, offering full transparency and flexibility for those interested in exploring or extending the project.
+We’ve developed an interactive web app that allows users to easily estimate their body fat percentage and provides a detailed walkthrough of how the model was created. The app offers an intuitive interface, making it accessible for anyone to use. All the code and resources for the web app are available in our GitHub repository, offering full transparency and flexibility for those interested in exploring or extending the project.
 
 link: https://uw-madison-stat-628-body-fat-study.onrender.com/ 
 
