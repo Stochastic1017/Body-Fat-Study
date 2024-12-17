@@ -1,10 +1,15 @@
 # Statistical Modeling and Deployment of Body Fat Percentage Prediction System
 
-## Web-app Link
+## Web-App
 
-We’ve developed an interactive web app that allows users to easily estimate their body fat percentage and provides a detailed walkthrough of how the model was created. The app offers an intuitive interface, making it accessible for anyone to use. All the code and resources for the web app are available in our GitHub repository, offering full transparency and flexibility for those interested in exploring or extending the project.
+The web-app link to interact with the bodyfat estimation system can be found here: https://uw-madison-stat-628-body-fat-study.onrender.com/ 
 
-link: https://uw-madison-stat-628-body-fat-study.onrender.com/ 
+*Note: This service is currently suspended.*
+
+Here are some videos to showcase the web-app.
+
+**BodyFat % Prediction:**
+
 
 ## Introduction
 
