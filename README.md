@@ -8,7 +8,25 @@ The web-app link to interact with the bodyfat estimation system can be found her
 
 Here are some videos to showcase the web-app.
 
-**BodyFat % Prediction:**
+**BodyFat (%) Prediction:**
+
+https://github.com/user-attachments/assets/644ec578-a093-457b-aae0-9cd5d1971182
+
+**Exploratory Analysis and Data Visualization**
+
+https://github.com/user-attachments/assets/1d2aff7d-607c-4ba3-bd69-c8a2f33f0224
+
+**Data Cleaning and Imputation Procedures**
+
+https://github.com/user-attachments/assets/c910de60-a6b5-48b8-9ad6-6adf7a3c8e0f
+
+**Feature Optimization for Body Fat Estimation**
+
+https://github.com/user-attachments/assets/56611e8e-9197-4d35-a210-cdaad99e617a
+
+**Fitting Multiple Linear Regression Model**
+
+https://github.com/user-attachments/assets/4bc50226-a007-44a9-b5db-1796c0c33b73
 
 
 ## Introduction
